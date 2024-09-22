@@ -1,31 +1,91 @@
+.DEFAULT_GOAL := all
 
-build_boot:
-	as --32 boot.asm -o  boot.o
+NAME        = kfs.bin
+SRC_DIR     = srcs
+OBJS_DIR    = .objs
+INCL_DIR    = includes
 
-build_src:
-	gcc -m32 -c srcs/kernel.c -o kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra -Werror
+# Source and object files
+C_SRCS      = $(wildcard $(SRC_DIR)/**/*.c) $(wildcard $(SRC_DIR)/*.c)
+ASM_SRCS    = $(wildcard $(SRC_DIR)/**/*.asm) $(wildcard $(SRC_DIR)/*.asm)
+OBJS        = $(patsubst $(SRC_DIR)/%.c, $(OBJS_DIR)/%.o, $(C_SRCS)) \
+              $(patsubst $(SRC_DIR)/%.asm, $(OBJS_DIR)/%.o, $(ASM_SRCS))
 
-link_kernel:
-	ld -m elf_i386 -T linker.ld kernel.o boot.o -o Kairnail.bin -nostdlib
+# Include directories
+INCL        = $(addprefix -I, $(shell find $(INCL_DIR) -type d))
 
+# Tools
+CC          = gcc
+AS          = as
+LD          = ld
+CFLAGS      = -m32 -std=gnu99 -ffreestanding -O2 -Wall -Wextra -Werror
+ASFLAGS     = --32
+LDFLAGS     = -m elf_i386 -nostdlib
+
+# Linker script
+LINKER_FILE = ./linker.ld
+
+# Build objects
+build_objects: $(OBJS)
+
+# Compile C source files
+$(OBJS_DIR)/%.o: $(SRC_DIR)/%.c
+	@printf "\033[0;33mCompiling C object... %-38.38s \r" $@
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@ -MMD $(INCL)
+
+# Compile Assembly source files
+$(OBJS_DIR)/%.o: $(SRC_DIR)/%.asm
+	@printf "\033[0;33mCompiling ASM object... %-38.38s \r" $@
+	@mkdir -p $(dir $@)
+	$(AS) $(ASFLAGS) $< -o $@
+
+# Link kernel
+$(NAME): build_objects
+	@echo "\033[0;32mLinking... $(NAME)\033[0m"
+	$(LD) $(LDFLAGS) -T $(LINKER_FILE) -o $(NAME) $(OBJS)
+	@make build_iso
+	@make run
+	@echo "\033[1;32mKfs: Done!\033[0m"
+
+# Default target
+all: $(NAME)
+
+# Clean object files
+clean:
+	@rm -f $(OBJS)
+	@rm -rf $(OBJS_DIR)
+	@echo "\033[1;31mObjects cleaned!\033[0m"
+
+# Full clean (including the final program)
+fclean: clean
+	@rm -f $(NAME)
+	@rm -f kfs.iso
+	@rm -rf isodir
+	@echo "\033[1;31mProgram cleaned!\033[0m"
+
+# Rebuild everything
+re: fclean all
+
+# Check if the binary is multiboot-compliant
 check_grub:
-	grub-file --is-x86-multiboot Kairnail.bin
+	grub-file --is-x86-multiboot $(NAME)
 
+# Build ISO for running on an emulator
 build_iso:
 	mkdir -p isodir/boot/grub
-	cp Kairnail.bin isodir/boot/Kairnail.bin
+	cp $(NAME) isodir/boot/$(NAME)
 	cp grub.cfg isodir/boot/grub/grub.cfg
-	grub-mkrescue -o Kairnail.iso isodir
+	grub-mkrescue -o $(NAME).iso isodir
 
-run:	
-	qemu-system-x86_64 -cdrom Kairnail.iso
+# Run the program in QEMU
+run:
+	qemu-system-x86_64 -cdrom $(NAME).iso -display sdl
 
-build:
-	make build_boot
-	make build_src
-	make link_kernel
-	make check_grub
-	make build_iso
+# Build everything (check multiboot, build ISO)
+build: $(NAME)
+	$(MAKE) check_grub
+	$(MAKE) build_iso
 
-
+.PHONY: all clean fclean re check_grub build_iso run build
 
