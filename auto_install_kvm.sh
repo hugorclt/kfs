@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo apt install qemu-system libvirt-daemon-system qemu-system-gui
+sudo apt install qemu-system libvirt-daemon-system qemu-system-gui mtools xorriso

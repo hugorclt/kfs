@@ -43,13 +43,38 @@ void init_vga(uint8 fore_color, uint8 back_color)
 	clear_vga_buffer(&vga_buffer, fore_color, back_color); // clear buffer
 }
 
+void terminal_putchar(char c, int color)
+{
+	static int curr_x = 0;
+	static int curr_y = 0;
+
+	if(curr_x > VGA_WIDTH)
+	{
+		curr_x = 0;
+		curr_y += 1;
+		if(curr_y > VGA_HEIGHT)
+		{
+			curr_y = 0;
+		}
+	}
+
+	int index = curr_y * VGA_WIDTH + curr_x;
+	vga_buffer[index] = vga_entry(c, color, BLACK);
+	curr_x += 1;
+}
+
+void terminal_putstring(char *str, int size)
+{
+	for(int i = 0; i < size; i++)
+	{
+		terminal_putchar(str[i], WHITE);
+	}
+}
+
 void kernel_entry()
 {
 	// first init vga with fore & back colors
 	init_vga(WHITE, BLACK);
 
-	// assign each ASCII character to video buffer
-	// you can change colors here
-	vga_buffer[0] = vga_entry('4', WHITE, BLACK);
-	vga_buffer[1] = vga_entry('2', WHITE, BLACK);
+	terminal_putstring("42", sizeof("42"));
 }
