@@ -3,23 +3,22 @@
 NAME        = kfs.bin
 SRC_DIR     = srcs
 OBJS_DIR    = .objs
-INCL_DIR    = includes
 
 # Source and object files
-C_SRCS      = $(wildcard $(SRC_DIR)/**/*.c) $(wildcard $(SRC_DIR)/*.c)
-ASM_SRCS    = $(wildcard $(SRC_DIR)/**/*.asm) $(wildcard $(SRC_DIR)/*.asm)
+C_SRCS      = $(shell find $(SRC_DIR) -name '*.c')
+ASM_SRCS    = $(shell find $(SRC_DIR) -name '*.asm')
 OBJS        = $(patsubst $(SRC_DIR)/%.c, $(OBJS_DIR)/%.o, $(C_SRCS)) \
               $(patsubst $(SRC_DIR)/%.asm, $(OBJS_DIR)/%.o, $(ASM_SRCS))
 
 # Include directories
-INCL        = $(addprefix -I, $(shell find $(INCL_DIR) -type d))
+INCL        = $(addprefix -I, $(shell find $(SRC_DIR) -type d))
 
 # Tools
 CC          = gcc
-AS          = as
+AS          = nasm
 LD          = ld
-CFLAGS      = -m32 -std=gnu99 -ffreestanding -O2 -Wall -Wextra -Werror
-ASFLAGS     = --32
+CFLAGS      = -m32 -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+ASFLAGS     = -felf32
 LDFLAGS     = -m elf_i386 -nostdlib
 
 # Linker script

@@ -1,0 +1,112 @@
+[
+ {
+  "directory": "/home/hugo/Documents/kfs-1",
+  "arguments": [
+   "gcc",
+   "-m32",
+   "-std=gnu99",
+   "-ffreestanding",
+   "-O2",
+   "-Wall",
+   "-Wextra",
+   "-c",
+   "srcs/kernel.c",
+   "-o",
+   ".objs/kernel.o",
+   "-MMD",
+   "-Isrcs",
+   "-Isrcs/print",
+   "-Isrcs/IDT",
+   "-Isrcs/IDT/pic"
+  ],
+  "file": "srcs/kernel.c"
+ },
+ {
+  "directory": "/home/hugo/Documents/kfs-1",
+  "arguments": [
+   "gcc",
+   "-m32",
+   "-std=gnu99",
+   "-ffreestanding",
+   "-O2",
+   "-Wall",
+   "-Wextra",
+   "-c",
+   "srcs/IDT/exception_handler.c",
+   "-o",
+   ".objs/IDT/exception_handler.o",
+   "-MMD",
+   "-Isrcs",
+   "-Isrcs/print",
+   "-Isrcs/IDT",
+   "-Isrcs/IDT/pic"
+  ],
+  "file": "srcs/IDT/exception_handler.c"
+ },
+ {
+  "directory": "/home/hugo/Documents/kfs-1",
+  "arguments": [
+   "gcc",
+   "-m32",
+   "-std=gnu99",
+   "-ffreestanding",
+   "-O2",
+   "-Wall",
+   "-Wextra",
+   "-c",
+   "srcs/IDT/pic/pic.c",
+   "-o",
+   ".objs/IDT/pic/pic.o",
+   "-MMD",
+   "-Isrcs",
+   "-Isrcs/print",
+   "-Isrcs/IDT",
+   "-Isrcs/IDT/pic"
+  ],
+  "file": "srcs/IDT/pic/pic.c"
+ },
+ {
+  "directory": "/home/hugo/Documents/kfs-1",
+  "arguments": [
+   "gcc",
+   "-m32",
+   "-std=gnu99",
+   "-ffreestanding",
+   "-O2",
+   "-Wall",
+   "-Wextra",
+   "-c",
+   "srcs/IDT/idt.c",
+   "-o",
+   ".objs/IDT/idt.o",
+   "-MMD",
+   "-Isrcs",
+   "-Isrcs/print",
+   "-Isrcs/IDT",
+   "-Isrcs/IDT/pic"
+  ],
+  "file": "srcs/IDT/idt.c"
+ },
+ {
+  "directory": "/home/hugo/Documents/kfs-1",
+  "arguments": [
+   "gcc",
+   "-m32",
+   "-std=gnu99",
+   "-ffreestanding",
+   "-O2",
+   "-Wall",
+   "-Wextra",
+   "-c",
+   "srcs/print/print.c",
+   "-o",
+   ".objs/print/print.o",
+   "-MMD",
+   "-Isrcs",
+   "-Isrcs/print",
+   "-Isrcs/IDT",
+   "-Isrcs/IDT/pic"
+  ],
+  "file": "srcs/print/print.c"
+ }
+]
