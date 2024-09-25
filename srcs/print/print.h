@@ -30,3 +30,5 @@ enum vga_color {
 
 void printk(char *str);
 void init_vga(uint8_t fore_color, uint8_t back_color);
+void printkx(uint32_t hex);
+void printkd(uint32_t hex);

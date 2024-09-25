@@ -1,39 +1,32 @@
 #include "idt.h"
+#include "pic.h"
 
-void idt_set_descriptor(uint8_t vector, void *isr, uint8_t flags)
+idt_entry_t idt_entries[IDT_MAX_DESCRIPTORS];
+idtr idt;
+
+void handle_keyboard_interrupt()
 {
-	idt_entry_t *descriptor = &idt[vector];
-
-	descriptor->isr_low = (uint32_t)isr & 0xFFFF;
-	descriptor->kernel_cs = 0x08; // this value can be whatever offset your kernel code selector is in your GDT
-	descriptor->attributes = flags;
-	descriptor->isr_high = (uint32_t)isr >> 16;
-	descriptor->reserved = 0;
+	printk("oui");
+	outb(PIC1_COMMAND_PORT, 0x20);
+	// unsigned char scan_code = inb(0x60);
+	printk("treslongstringdefouquidepasseafond");
 }
-
-static bool vectors[IDT_MAX_DESCRIPTORS];
-
-extern void *isr_stub_table[];
 
 void init_idt()
 {
 	PIC_remap(0x20, 0x28);
-	// idtr.base = (uintptr_t)&idt[0];
-	// idtr.limit = (uint16_t)sizeof(idt_entry_t) * IDT_MAX_DESCRIPTORS - 1;
-	//
-	// for(uint8_t vector = 0; vector < 32; vector++)
-	// {
-	// 	idt_set_descriptor(vector, isr_stub_table[vector], 0x8E);
-	// 	vectors[vector] = true;
-	// }
-	// Set ISRs for IRQ 0-15 (remapped to 0x20-0x2F)
-	for(uint8_t vector = 0x20; vector <= 0x2F; vector++)
-	{
-		idt_set_descriptor(vector, isr_stub_table[vector], 0x8E);
-		vectors[vector] = true;
-	}
-	// idt_set_descriptor(0x21, isr_stub_table[0x21], 0x8E);
 
-	__asm__ volatile("lidt %0" : : "m"(idtr)); // load the new IDT
-	__asm__ volatile("sti");		   // set the interrupt flag
+	unsigned int handler = (unsigned int)interrupt_handler_33;
+	idt_entries[33].isr_low = handler & 0x0000FFFF; // lower 16 bits
+	idt_entries[33].kernel_cs = 0x08;
+	idt_entries[33].reserved = 0;
+	idt_entries[33].attributes = 0x8e;
+	idt_entries[33].isr_high = (handler & 0xFFFF0000) >> 16;
+
+	idt.address = (unsigned int)&idt_entries;
+	idt.size = (sizeof(idt_entry_t) * IDT_MAX_DESCRIPTORS) - 1;
+
+	load_idt((unsigned int *)&idt);
+	segments_load_registers();
+	printk("end init");
 }

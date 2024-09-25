@@ -1,10 +1,17 @@
 #pragma once
 
 #include "pic.h"
+#include "print.h"
 #include <stdbool.h>
 #include <stdint.h>
 
 #define IDT_MAX_DESCRIPTORS 256
+#define INTERRUPT_KEYBOARD 33
+
+// ASM function
+void load_idt(unsigned int *idt_address);
+void interrupt_handler_33();
+void segments_load_registers();
 
 typedef struct {
 	uint16_t isr_low;   // The lower 16 bits of the ISR's address
@@ -15,11 +22,28 @@ typedef struct {
 } __attribute__((packed)) idt_entry_t;
 
 typedef struct {
-	uint16_t limit;
-	uint32_t base;
-} __attribute__((packed)) idtr_t;
+	unsigned short size;
+	unsigned int address;
+} __attribute__((packed)) idtr;
 
-__attribute__((aligned(0x10))) static idt_entry_t idt[256];
-static idtr_t idtr;
+struct cpu_state {
+	/* the state of the registers */
+	unsigned int eax;
+	unsigned int ebx;
+	unsigned int ecx;
+	unsigned int edx;
+	unsigned int ebp;
+	unsigned int esi;
+	unsigned int edi;
+} __attribute__((packed));
 
+struct stack_state {
+	/* the state of the stack */
+	unsigned int error_code;
+	unsigned int eip;
+	unsigned int cs;
+	unsigned int eflags;
+} __attribute__((packed));
+
+void handle_keyboard_interrupt();
 void init_idt();
