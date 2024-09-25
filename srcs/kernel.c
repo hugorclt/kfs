@@ -32,95 +32,18 @@ static inline uint16_t vga_entry(unsigned char uc, uint8_t color)
 	return (uint16_t) uc | ((uint16_t) color << 8);
 }
 
-size_t strlen(const char* str) 
-{
-	size_t len = 0;
-	while (str[len])
-	{
-		len++;
-	}
-	return len;
-}
-
-static const size_t VGA_WIDTH = 80;
-static const size_t VGA_HEIGHT = 25;
-
-size_t terminal_y;
-size_t terminal_x;
-uint8_t terminal_color;
-uint16_t* terminal_buffer;
-
-void terminal_initialize(void) 
-{
-	terminal_y = 0;
-	terminal_x = 0;
-	terminal_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
-	terminal_buffer = (uint16_t*) 0xB8000;
-	for (size_t y = 0; y < VGA_HEIGHT; y++)
-	{
-		for (size_t x = 0; x < VGA_WIDTH; x++)
-		{
-			const size_t index = y * VGA_WIDTH + x;
-			terminal_buffer[index] = vga_entry(' ', terminal_color);
-		}
-	}
-}
-
-void terminal_setcolor(uint8_t color) 
-{
-	terminal_color = color;
-}
-
-void terminal_putentryat(char c, uint8_t color, size_t x, size_t y) 
-{
-	const size_t index = y * VGA_WIDTH + x;
-	terminal_buffer[index] = vga_entry(c, color);
-}
-
-void terminal_putchar(char c) 
-{
-	if (c == '\n')
-	{
-		terminal_y += 1;
-		terminal_x = 0;
-	}
-	else
-	{
-		terminal_putentryat(c, terminal_color, terminal_x, terminal_y);
-		terminal_x += 1;
-	}
-
-	if (terminal_x == VGA_WIDTH)
-	{
-		terminal_x = 0;
-		terminal_y += 1;
-	}
-	if (terminal_y == VGA_HEIGHT)
-	{
-		terminal_y = 0;
-		//implement clear buffer
-	}
-}
-
-void terminal_write(const char* data, size_t size) 
-{
-	for (size_t i = 0; i < size; i++)
-	{
-		terminal_putchar(data[i]);
-	}
-}
-
-void terminal_writestring(const char* data) 
-{
-	terminal_write(data, strlen(data));
-}
 
 void kernel_main(void) 
 {
-	/* Initialize terminal interface */
-	terminal_initialize();
-
-	terminal_writestring("Hello, kernel World!\n\ntest");
-	terminal_writestring("slkjdaskdhajkdhakdhadhadh\n\n");
 
 }
+
+// To do
+// utils strlen
+// utils true index_vga
+// printkf -> similair a printf
+// gestion \b, \r, \t
+// color terminal et colour police en global / singleton
+// %d, %i, %s, %X, %p
+//clear buffer vga
+//quand ligne max atteint -> clear ligne 1 puis decaler tout de une ligne
