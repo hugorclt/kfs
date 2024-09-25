@@ -31,21 +31,21 @@ build_objects: $(OBJS)
 $(OBJS_DIR)/%.o: $(SRC_DIR)/%.c
 	@printf "\033[0;33mCompiling C object... %-38.38s \r" $@
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@ -MMD $(INCL)
+	@$(CC) $(CFLAGS) -c $< -o $@ -MMD $(INCL)
 
 # Compile Assembly source files
 $(OBJS_DIR)/%.o: $(SRC_DIR)/%.asm
 	@printf "\033[0;33mCompiling ASM object... %-38.38s \r" $@
 	@mkdir -p $(dir $@)
-	$(AS) $(ASFLAGS) $< -o $@
+	@$(AS) $(ASFLAGS) $< -o $@
 
 # Link kernel
 $(NAME): build_objects
-	@echo "\033[0;32mLinking... $(NAME)\033[0m"
-	$(LD) $(LDFLAGS) -T $(LINKER_FILE) -o $(NAME) $(OBJS)
+	@echo "\033[0;32m\nLinking... $(NAME)\033[0m"
+	@$(LD) $(LDFLAGS) -T $(LINKER_FILE) -o $(NAME) $(OBJS)
 	@make build_iso
 	@make run
-	@echo "\033[1;32mKfs: Done!\033[0m"
+	@echo "\033[1;32mKfs: Goodbye! :)) \033[0m"
 
 # Default target
 all: $(NAME)
@@ -59,27 +59,30 @@ clean:
 # Full clean (including the final program)
 fclean: clean
 	@rm -f $(NAME)
+	@echo "\033[1;31mProgram cleaned!\033[0m"
 	@rm -f kfs.bin.iso
 	@rm -rf isodir
-	@echo "\033[1;31mProgram cleaned!\033[0m"
+	@echo "\033[1;31mIso cleaned!\033[0m"
 
 # Rebuild everything
 re: fclean all
 
 # Check if the binary is multiboot-compliant
 check_grub:
-	grub-file --is-x86-multiboot $(NAME)
+	@grub-file --is-x86-multiboot $(NAME)
 
 # Build ISO for running on an emulator
 build_iso:
-	mkdir -p isodir/boot/grub
-	cp $(NAME) isodir/boot/$(NAME)
-	cp grub.cfg isodir/boot/grub/grub.cfg
-	grub-mkrescue -o $(NAME).iso isodir
+	@mkdir -p isodir/boot/grub
+	@cp $(NAME) isodir/boot/$(NAME)
+	@cp grub.cfg isodir/boot/grub/grub.cfg
+	@echo "\033[1;32mKfs: Building iso...\033[0m"
+	@grub-mkrescue -o $(NAME).iso isodir
 
 # Run the program in QEMU
 run:
-	qemu-system-x86_64 -cdrom $(NAME).iso -display sdl
+	@echo "\033[1;32mKfs: Running kfs...\033[0m"
+	@qemu-system-x86_64 -cdrom $(NAME).iso -display sdl
 
 # Build everything (check multiboot, build ISO)
 build: $(NAME)
