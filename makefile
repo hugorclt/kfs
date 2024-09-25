@@ -59,7 +59,7 @@ clean:
 # Full clean (including the final program)
 fclean: clean
 	@rm -f $(NAME)
-	@rm -f kfs.iso
+	@rm -f kfs.bin.iso
 	@rm -rf isodir
 	@echo "\033[1;31mProgram cleaned!\033[0m"
 
