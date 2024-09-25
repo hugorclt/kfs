@@ -27,6 +27,5 @@ void init_idt()
 	idt.size = (sizeof(idt_entry_t) * IDT_MAX_DESCRIPTORS) - 1;
 
 	load_idt((unsigned int *)&idt);
-	segments_load_registers();
 	printk("end init");
 }
