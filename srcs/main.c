@@ -7,12 +7,13 @@ void kernel_main(void)
 	// vga_set_fg_color(VGA_COLOR_WHITE);
 	// vga_set_bg_color(VGA_COLOR_BLACK);
 
-	for(size_t i = 0; i < 1999; i++)
+	for (int y = 0; y < 26; y++) 
 	{
-		vga_write_buffer('A');
+		for (int x = 0; x < 80; x++)
+		{
+			vga_write_buffer('a' + y);
+		}
 	}
-
-
 }
 
 // To do

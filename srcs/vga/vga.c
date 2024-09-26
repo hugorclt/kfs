@@ -22,7 +22,7 @@ inline uint16_t			vga_entry(unsigned char uc, enum vga_color fg, enum vga_color 
 
 inline static size_t	vga_index(size_t x, size_t y)
 {
-	return (y * VGA_MAX_X + x);
+	return ((y * VGA_MAX_X) + x);
 }
 
 void					vga_set_fg_color(enum vga_color color)
@@ -33,6 +33,38 @@ void					vga_set_fg_color(enum vga_color color)
 void					vga_set_bg_color(enum vga_color color)
 {
 	bg_color = color;
+}
+
+void					vga_clear_line(size_t y)
+{
+	for (size_t x = 0; x < VGA_MAX_X - 1; x++)
+	{
+		size_t index = vga_index(x, y);
+
+		vga_buffer[index] = vga_entry(' ', fg_color, bg_color);
+	}
+	vga_buffer[vga_index(79, y)] = vga_entry(' ', fg_color, bg_color);
+}
+
+void					vga_copy_line(size_t dst_y, size_t src_y)
+{
+	for (size_t x = 0; x < VGA_MAX_X - 1; x++)
+	{
+		size_t	dst_index = vga_index(x, dst_y);
+		size_t	src_index = vga_index(x, src_y);
+
+		vga_buffer[dst_index] = vga_buffer[src_index];
+	}
+	vga_buffer[vga_index(79, dst_y)] = vga_buffer[vga_index(79, src_y)];
+}
+
+void					vga_scroll_one_line()
+{
+	for (size_t y = 0; y < VGA_MAX_Y - 1; y++)
+	{
+		vga_copy_line(y, y + 1);
+	}
+	vga_clear_line(VGA_MAX_Y - 1);
 }
 
 void					vga_write_buffer(unsigned char uc)
@@ -48,7 +80,8 @@ void					vga_write_buffer(unsigned char uc)
 	}
 	if (vga_y >= VGA_MAX_Y)
 	{
-		
+		vga_scroll_one_line();
+		vga_y -= 1;	
 	}
 }
 

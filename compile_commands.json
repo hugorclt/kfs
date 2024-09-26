@@ -1,0 +1,65 @@
+[
+ {
+  "directory": "/home/hugo/Documents/kfs-1",
+  "arguments": [
+   "gcc",
+   "-m32",
+   "-std=gnu99",
+   "-ffreestanding",
+   "-O2",
+   "-Wall",
+   "-Wextra",
+   "-c",
+   "srcs/utils/printf.c",
+   "-o",
+   ".objs/utils/printf.o",
+   "-MMD",
+   "-Isrcs",
+   "-Isrcs/utils",
+   "-Isrcs/vga"
+  ],
+  "file": "srcs/utils/printf.c"
+ },
+ {
+  "directory": "/home/hugo/Documents/kfs-1",
+  "arguments": [
+   "gcc",
+   "-m32",
+   "-std=gnu99",
+   "-ffreestanding",
+   "-O2",
+   "-Wall",
+   "-Wextra",
+   "-c",
+   "srcs/vga/vga.c",
+   "-o",
+   ".objs/vga/vga.o",
+   "-MMD",
+   "-Isrcs",
+   "-Isrcs/utils",
+   "-Isrcs/vga"
+  ],
+  "file": "srcs/vga/vga.c"
+ },
+ {
+  "directory": "/home/hugo/Documents/kfs-1",
+  "arguments": [
+   "gcc",
+   "-m32",
+   "-std=gnu99",
+   "-ffreestanding",
+   "-O2",
+   "-Wall",
+   "-Wextra",
+   "-c",
+   "srcs/main.c",
+   "-o",
+   ".objs/main.o",
+   "-MMD",
+   "-Isrcs",
+   "-Isrcs/utils",
+   "-Isrcs/vga"
+  ],
+  "file": "srcs/main.c"
+ }
+]
