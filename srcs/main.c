@@ -20,13 +20,14 @@ void kernel_main(void)
 
 }
 
-// To do
-// utils strlen
-// printkf -> similair a printf
-// gestion \b, \r, \t, \n
-// %d, %i, %s, %X, %p
 
-//\r pose un espace ??
+// \r pose un espace ??
+// cursor
+// tester masse de \n
+// fonction presentation 42 kfs de hugo et adrian
+
+
+
 
 //DONE
 // utils true index_vga
