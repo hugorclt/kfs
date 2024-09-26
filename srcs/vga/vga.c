@@ -65,12 +65,33 @@ void					vga_scroll_one_line()
 	vga_clear_line(VGA_MAX_Y - 1);
 }
 
-void					vga_write_buffer(unsigned char uc)
+static bool					vga_write_special_char(unsigned char uc )
+{
+	if (uc == '\n')
+	{
+		vga_x = 0;
+		vga_y += 1;
+		return (1);
+	}
+	else if (uc == '\r')
+	{
+		vga_x = 0;
+		return (1);
+	}
+	return (0);
+}
+
+static void					vga_write_char(unsigned char uc)
 {
 	size_t index = vga_index(vga_x, vga_y);
 	vga_buffer[index] = vga_entry(uc, fg_color, bg_color);
-	
 	vga_x += 1;
+}
+
+void					vga_write_buffer(unsigned char uc)
+{
+	if (!vga_write_special_char(uc))
+		vga_write_char(uc);
 
 	if (vga_x >= VGA_MAX_X)
 	{
@@ -84,6 +105,8 @@ void					vga_write_buffer(unsigned char uc)
 		vga_x = 0;
 	}
 }
+
+
 
 void					vga_clear_buffer()
 {
