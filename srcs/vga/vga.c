@@ -3,9 +3,8 @@
 uint16_t*		vga_buffer	= (uint16_t*) 0xB8000;
 size_t 			vga_y		= 0;
 size_t			vga_x		= 0;
-enum vga_color	fg_color = VGA_COLOR_WHITE;
-enum vga_color	bg_color = VGA_COLOR_BLACK;
-
+enum vga_color	fg_color	= VGA_COLOR_WHITE;
+enum vga_color	bg_color	= VGA_COLOR_BLACK;
 
 
 inline static uint8_t	vga_entry_color(enum vga_color fg, enum vga_color bg) 
