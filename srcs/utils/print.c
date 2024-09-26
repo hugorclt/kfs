@@ -6,6 +6,7 @@ static size_t	strlen(const char* str)
 	while(str[i++]);
 	return (i);
 }
+
 void	printk(const char* str)
 {
 	for(size_t i = 0; i < strlen(str); i++)

@@ -71,14 +71,14 @@ static bool					vga_write_special_char(unsigned char uc )
 	{
 		vga_x = 0;
 		vga_y += 1;
-		return (1);
+		return (true);
 	}
 	else if (uc == '\r')
 	{
 		vga_x = 0;
-		return (1);
+		return (true);
 	}
-	return (0);
+	return (false);
 }
 
 static void					vga_write_char(unsigned char uc)
@@ -105,8 +105,6 @@ void					vga_write_buffer(unsigned char uc)
 		vga_x = 0;
 	}
 }
-
-
 
 void					vga_clear_buffer()
 {
