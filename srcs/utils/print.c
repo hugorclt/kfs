@@ -3,13 +3,16 @@
 static size_t	strlen(const char* str)
 {
 	size_t	i = 0;
-	while(str[i++]);
+	while(str[i])
+	{
+		i++;
+	}
 	return (i);
 }
 
 void	printk(const char* str)
 {
-	for(size_t i = 0; i < strlen(str); i++)
+	for (size_t i = 0; i < strlen(str); i++)
 	{
 		vga_write_buffer(str[i]);
 	}
