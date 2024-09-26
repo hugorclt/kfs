@@ -1,11 +1,12 @@
 #include <vga.h>
+#include <print.h>
 
 
 
 void kernel_main(void) 
 {
-	// vga_set_fg_color(VGA_COLOR_WHITE);
-	// vga_set_bg_color(VGA_COLOR_BLACK);
+	vga_set_fg_color(VGA_COLOR_WHITE);
+	vga_set_bg_color(VGA_COLOR_BLACK);
 
 	for (int y = 0; y < VGA_MAX_Y; y++) 
 	{
@@ -14,8 +15,6 @@ void kernel_main(void)
 			vga_write_buffer('a' + y);
 		}
 	}
-	vga_write_buffer('0');
-	vga_clear_buffer();
 	vga_write_buffer('0');
 
 }
