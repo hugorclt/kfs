@@ -25,41 +25,44 @@ void	test_special_char(void)
 	printk("A\n");
 	printk("B");
 
-	for (size_t i = 0; i < 25; i++)
+	for (size_t i = 0; i < 26; i++)
 	{
-		char c = 'A' + i;
-		printk(&c);
+		char	str[2];
+		str[0] = 'A' + i;
+		str[1] = '\0';
 		printk("\n-");
+		printk(str);
 	}
 }
 
 void	kernel_main(void) 
 {
 	kernel_hello();
-
 	// test_special_char();
 }
 
-// for (int y = 0; y < VGA_MAX_Y; y++) 
-	// {
-	// 	for (int x = 0; x < VGA_MAX_X; x++)
-	// 	{
-	// 		vga_write_buffer('a' + y);
-	// 	}
-	// }
-	// vga_write_buffer('0');
+/*
+ for (int y = 0; y < VGA_MAX_Y; y++) 
+	 {
+	 	for (int x = 0; x < VGA_MAX_X; x++)
+	 	{
+	 		vga_write_buffer('a' + y);
+	 	}
+	 }
+	 vga_write_buffer('0');
 
-//TODO
-// cursor
+TODO
+ small bug -> color of cursor is the same as text ?
 
-
-//DONE
-// utils true index_vga
-// color terminal et colour police en global / singleton
-//clear buffer vga
-//quand ligne max atteint -> clear ligne 1 puis decaler tout de une ligne
-// clear line 
-// advance line
-// fonction presentation 42 kfs de hugo et adrian
-// debug de \r et \n --> a cause du strlen de adrian
-// tester masse de \n
+DONE
+ utils true index_vga
+ color terminal et colour police en global / singleton
+clear buffer vga
+quand ligne max atteint -> clear ligne 1 puis decaler tout de une ligne
+ clear line 
+ advance line
+ fonction presentation 42 kfs de hugo et adrian
+ debug de \r et \n --> a cause du strlen de adrian
+ tester masse de \n
+ cursor
+*/
