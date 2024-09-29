@@ -1,4 +1,5 @@
 #include <vga.h>
+#include <io_port.h>
 
 uint16_t*		vga_buffer	= (uint16_t*) 0xB8000;
 size_t 			vga_y		= 0;
@@ -16,6 +17,8 @@ inline static uint16_t			vga_entry(unsigned char uc, enum vga_color fg, enum vga
 {
 	uint8_t	color = vga_entry_color(fg, bg);
 
+	// color |=  1 << 7; // this is to set blinking cursor --> does not work ?
+
 	return ((uint16_t) uc | ((uint16_t) color << 8));
 }
 
@@ -32,6 +35,24 @@ void					vga_set_fg_color(enum vga_color color)
 void					vga_set_bg_color(enum vga_color color)
 {
 	bg_color = color;
+}
+
+static void				vga_update_cursor(uint16_t x, uint16_t y)
+{
+	/*
+	Ports of vga
+	0x3D4	-> Index register	(select which register to read / write from)
+	0x3D5	-> Data register	(port where to read / write data selected by Index register)
+	0x0F	-> Cursor location high register
+	0x0E	-> Cursor location low register
+	https://wiki.osdev.org/Text_Mode_Cursor#Moving_the_Cursor_2
+	*/
+	uint16_t pos = vga_index(x, y);
+
+	outb(0x3D4, 0x0F);
+	outb(0x3D5, (uint8_t) (pos & 0xFF));
+	outb(0x3D4, 0x0E);
+	outb(0x3D5, (uint8_t) ((pos >> 8) & 0xFF));
 }
 
 void					vga_clear_line(size_t y)
@@ -103,6 +124,7 @@ void					vga_write_buffer(unsigned char uc)
 		vga_y -= 1;
 		vga_x = 0;
 	}
+	vga_update_cursor(vga_x, vga_y);
 }
 
 void					vga_clear_buffer()
@@ -117,4 +139,5 @@ void					vga_clear_buffer()
 	}
 	vga_x = 0;
 	vga_y = 0;
+	vga_update_cursor(vga_x, vga_y);
 }
