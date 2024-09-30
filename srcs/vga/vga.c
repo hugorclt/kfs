@@ -1,4 +1,4 @@
-#include <vga.h>
+#include "vga.h"
 #include <io_port.h>
 
 uint16_t*		vga_buffer	= (uint16_t*) 0xB8000;
