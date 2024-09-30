@@ -2,10 +2,32 @@
 
 #include <stdint.h>
 
+
+// t_gdtr* == GDT_BASE ??
+// ou
+// t_gdtr.gdt == GDT_BASE ??
+// Adrian -> je pense que c'est t_gdtr.gdt
+
+#define	GDT_BASE	0x00000800
+#define GDT_SIZE	7
+
 typedef struct s_gdtr {
 	uint16_t	size;
 	uint32_t	gdt;
-}	t_gdtr __attribute__((packed));
+}	t_gdtr __attribute__ ((packed));
+
+typedef struct s_gdt_descriptor {
+    uint16_t	limit_low;
+    uint16_t	base_low;
+    uint8_t		base_mid;
+    uint8_t		access;
+    uint8_t		limit_high	: 4;
+    uint8_t		flags		: 4;
+    uint8_t		base_high;
+}	t_gdt_descriptor __attribute__ ((packed));
+
+t_gdtr *gdtr = (t_gdtr *) GDT_BASE;
+t_gdt_descriptor gdt[GDT_SIZE];
 
 /*
  * access_bytes
@@ -21,13 +43,7 @@ typedef struct s_gdtr {
  *
  */
 
-typedef struct s_gdt_descriptor{
-	uint16_t limit_low;	
-	uint16_t base_low;
-	uint8_t base_middle;
-	uint8_t access_byte;
-} t_gdt_descriptor __attribute__((packed));
-
+//Segment Selector in register
 
 
 
