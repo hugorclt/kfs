@@ -16,9 +16,6 @@ inline static uint8_t	vga_entry_color(enum vga_color fg, enum vga_color bg)
 inline static uint16_t			vga_entry(unsigned char uc, enum vga_color fg, enum vga_color bg)
 {
 	uint8_t	color = vga_entry_color(fg, bg);
-
-	// color |=  1 << 7; // this is to set blinking cursor --> does not work ?
-
 	return ((uint16_t) uc | ((uint16_t) color << 8));
 }
 
@@ -129,6 +126,8 @@ void					vga_write_buffer(unsigned char uc)
 
 void					vga_clear_buffer()
 {
+	vga_set_fg_color(VGA_COLOR_WHITE);
+	vga_set_bg_color(VGA_COLOR_BLACK);
 	for (size_t y = 0; y < VGA_MAX_Y; y++)
 	{
 		for (size_t x = 0; x < VGA_MAX_X; x++)
@@ -137,6 +136,7 @@ void					vga_clear_buffer()
 			vga_buffer[index] = vga_entry(' ', fg_color, bg_color);
 		}
 	}
+	
 	vga_x = 0;
 	vga_y = 0;
 	vga_update_cursor(vga_x, vga_y);
