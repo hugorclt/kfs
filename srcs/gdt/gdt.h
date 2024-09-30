@@ -6,7 +6,8 @@
 // t_gdtr* == GDT_BASE ??
 // ou
 // t_gdtr.gdt == GDT_BASE ??
-// Adrian -> je pense que c'est t_gdtr.gdt
+// Adrian -> je pense que c'est t_gdtr.gdt (comme le tuto)
+//
 
 #define	GDT_BASE	0x00000800
 #define GDT_SIZE	7
@@ -26,7 +27,10 @@ typedef struct s_gdt_descriptor {
     uint8_t		base_high;
 }	t_gdt_descriptor __attribute__ ((packed));
 
-t_gdtr *gdtr = (t_gdtr *) GDT_BASE;
+// gdtr = pointeur ? Pour le tuto non
+// asm("lgdtl (gdtr)");
+	// --> (gdtr) takes adress of gdtr
+t_gdtr *gdtr = (t_gdtr *) GDT_BASE; //faux non?
 t_gdt_descriptor gdt[GDT_SIZE];
 
 /*

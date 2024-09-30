@@ -27,13 +27,15 @@ void gdt_init(void)
 
     /* initialize the gdtr structure */
     gdtr->size = (sizeof(gdt) * GDT_SIZE) - 1;
-    gdtr->gdt = &gdt;
+    // gdtr->gdt = &gdt;
+	gdtr->gdt = GDT_BASE;
 
     /* copy the gdtr to its memory area */
-    memcpy((char *) kgdtr.base, (char *) kgdt, kgdtr.limite);
+    memcpy((char *) gdtr->gdt, (char *) gdt, gdtr->gdt);
 
     /* load the gdtr registry */
-    asm("lgdtl (kgdtr)");
+    asm("lgdtl (gdtr)");
+	// --> (gdtr) takes adress of gdtr
 
     /* initiliaz the segments */
     asm("   movw $0x10, %ax    \n \
