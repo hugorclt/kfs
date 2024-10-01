@@ -12,6 +12,10 @@
 #define	GDT_BASE	0x00000800
 #define GDT_SIZE	7
 
+//FLAGS
+// 0x0D --> tuto (no reserved)
+// 0x0C --> wiki
+
 typedef struct s_gdtr {
 	uint16_t	size;
 	uint32_t	gdt;

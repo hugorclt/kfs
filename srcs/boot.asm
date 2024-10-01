@@ -74,7 +74,7 @@ _start:
 	extern kernel_main
 	call kernel_main
 
-	; If the system has nothing more to do, put the computer into an
+ 	; If the system has nothing more to do, put the computer into an
 	; infinite loop. To do that:
 	; 1) Disable interrupts with cli (clear interrupt enable in eflags).
 	;    They are already disabled by the bootloader, so this is not needed.
