@@ -20,6 +20,5 @@ typedef struct __attribute__ ((packed)) s_gdt_descriptor {
     uint8_t		base_high;
 }	t_gdt_descriptor;
 
-t_gdtr gdtr;
-t_gdt_descriptor gdt[GDT_SIZE];
+void gdt_init(void);
 

@@ -1,6 +1,8 @@
-#include <print.h>
 #include <stdint.h>
 #include <stddef.h>
+#include "print.h"
+#include "gdt.h"
+#include "vga.h"
 
 
 void	kernel_hello(void)
@@ -46,5 +48,8 @@ void	kernel_main(void)
 	// test_special_char();
 	// vga_clear_buffer();
 	// kernel_hello();	
+	gdt_init();
+	printmemk((char *)0x800, 10);
+
 }
 

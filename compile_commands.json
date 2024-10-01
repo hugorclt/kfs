@@ -1,6 +1,6 @@
 [
  {
-  "directory": "/home/hugo/Documents/kfs-1",
+  "directory": "/home/hugo/Desktop/kfs-1",
   "arguments": [
    "gcc",
    "-m32",
@@ -10,18 +10,21 @@
    "-Wall",
    "-Wextra",
    "-c",
-   "srcs/utils/printf.c",
+   "srcs/gdt/gdt.c",
    "-o",
-   ".objs/utils/printf.o",
+   ".objs/gdt/gdt.o",
    "-MMD",
    "-Isrcs",
+   "-Isrcs/gdt",
+   "-Isrcs/vga",
    "-Isrcs/utils",
-   "-Isrcs/vga"
+   "-Isrcs/utils/io_port",
+   "-Isrcs/utils/print"
   ],
-  "file": "srcs/utils/printf.c"
+  "file": "srcs/gdt/gdt.c"
  },
  {
-  "directory": "/home/hugo/Documents/kfs-1",
+  "directory": "/home/hugo/Desktop/kfs-1",
   "arguments": [
    "gcc",
    "-m32",
@@ -36,13 +39,16 @@
    ".objs/vga/vga.o",
    "-MMD",
    "-Isrcs",
+   "-Isrcs/gdt",
+   "-Isrcs/vga",
    "-Isrcs/utils",
-   "-Isrcs/vga"
+   "-Isrcs/utils/io_port",
+   "-Isrcs/utils/print"
   ],
   "file": "srcs/vga/vga.c"
  },
  {
-  "directory": "/home/hugo/Documents/kfs-1",
+  "directory": "/home/hugo/Desktop/kfs-1",
   "arguments": [
    "gcc",
    "-m32",
@@ -57,9 +63,84 @@
    ".objs/main.o",
    "-MMD",
    "-Isrcs",
+   "-Isrcs/gdt",
+   "-Isrcs/vga",
    "-Isrcs/utils",
-   "-Isrcs/vga"
+   "-Isrcs/utils/io_port",
+   "-Isrcs/utils/print"
   ],
   "file": "srcs/main.c"
+ },
+ {
+  "directory": "/home/hugo/Desktop/kfs-1",
+  "arguments": [
+   "gcc",
+   "-m32",
+   "-std=gnu99",
+   "-ffreestanding",
+   "-O2",
+   "-Wall",
+   "-Wextra",
+   "-c",
+   "srcs/utils/memcpy.c",
+   "-o",
+   ".objs/utils/memcpy.o",
+   "-MMD",
+   "-Isrcs",
+   "-Isrcs/gdt",
+   "-Isrcs/vga",
+   "-Isrcs/utils",
+   "-Isrcs/utils/io_port",
+   "-Isrcs/utils/print"
+  ],
+  "file": "srcs/utils/memcpy.c"
+ },
+ {
+  "directory": "/home/hugo/Desktop/kfs-1",
+  "arguments": [
+   "gcc",
+   "-m32",
+   "-std=gnu99",
+   "-ffreestanding",
+   "-O2",
+   "-Wall",
+   "-Wextra",
+   "-c",
+   "srcs/utils/io_port/io_port.c",
+   "-o",
+   ".objs/utils/io_port/io_port.o",
+   "-MMD",
+   "-Isrcs",
+   "-Isrcs/gdt",
+   "-Isrcs/vga",
+   "-Isrcs/utils",
+   "-Isrcs/utils/io_port",
+   "-Isrcs/utils/print"
+  ],
+  "file": "srcs/utils/io_port/io_port.c"
+ },
+ {
+  "directory": "/home/hugo/Desktop/kfs-1",
+  "arguments": [
+   "gcc",
+   "-m32",
+   "-std=gnu99",
+   "-ffreestanding",
+   "-O2",
+   "-Wall",
+   "-Wextra",
+   "-c",
+   "srcs/utils/print/print.c",
+   "-o",
+   ".objs/utils/print/print.o",
+   "-MMD",
+   "-Isrcs",
+   "-Isrcs/gdt",
+   "-Isrcs/vga",
+   "-Isrcs/utils",
+   "-Isrcs/utils/io_port",
+   "-Isrcs/utils/print"
+  ],
+  "file": "srcs/utils/print/print.c"
  }
 ]

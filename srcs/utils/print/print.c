@@ -1,4 +1,6 @@
 #include "print.h"
+#include "vga.h"
+#include <stdint.h>
 
 static size_t	strlen(const char* str)
 {
@@ -17,3 +19,25 @@ void	printk(const char* str)
 		vga_write_buffer(str[i]);
 	}
 }
+
+void	printkhex(uint32_t nb)
+{
+	printk("0x");
+	vga_putnbr_hex(nb);
+}
+
+void 	printmemk(void *start, size_t byte)
+{
+	for (size_t i = 0; i < byte; i++) {
+		unsigned char *address = start + i * 4;
+		printkhex((uint32_t)address);
+		printk(" : ");
+		printkhex(*address);
+		printkhex(*(address + 1));
+		printkhex(*(address + 2));
+		printkhex(*(address + 3));
+		printk("\n");
+	}
+		
+}
+
