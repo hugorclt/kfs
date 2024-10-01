@@ -43,8 +43,8 @@ void	test_special_char(void)
 
 void	kernel_main(void) 
 {
-	test_special_char();
-	vga_clear_buffer();
-	kernel_hello();
+	// test_special_char();
+	// vga_clear_buffer();
+	// kernel_hello();	
 }
 
