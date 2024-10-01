@@ -1,4 +1,5 @@
 #include "gdt.h"
+#include "utils.h"
 
 void gdt_init_descriptor(uint32_t base, uint32_t limit,
 	uint8_t access, uint8_t flags, t_gdt_descriptor *desc)
