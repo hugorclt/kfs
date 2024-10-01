@@ -1,5 +1,5 @@
-# pragma once
+#pragma once
 
-#include <stddef.h>
+#include "stddef.h"
 
-void	*memcpy(void *dest, const void *src, size_t n);
+void	*memcpy(void *dst, const void *src, size_t n);

@@ -141,3 +141,23 @@ void					vga_clear_buffer()
 	vga_y = 0;
 	vga_update_cursor(vga_x, vga_y);
 }
+
+void vga_putnbr_hex(uint32_t n)
+{
+	char *base;
+	unsigned int nb;
+
+	base = "0123456789ABCDEF";
+	nb = n;
+	if(nb >= 16)
+	{
+		vga_putnbr_hex(nb / 16);
+		vga_putnbr_hex(nb % 16);
+	}
+	else
+	{
+		vga_write_char(base[nb % 16]);
+	}
+	vga_update_cursor(vga_x, vga_y);
+}
+
