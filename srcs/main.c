@@ -9,7 +9,7 @@ void	kernel_hello(void)
 {
 	vga_set_fg_color(VGA_COLOR_WHITE);
 	vga_set_bg_color(VGA_COLOR_BLACK);
-	printk("Hello 42!\n");
+	printk("\nHello 42!\n");
 	printk("Kernel From Scratch by ");
 
 	vga_set_fg_color(VGA_COLOR_LIGHT_RED);
@@ -17,9 +17,11 @@ void	kernel_hello(void)
 	vga_set_fg_color(VGA_COLOR_WHITE);
 	printk(" and ");
 	vga_set_fg_color(VGA_COLOR_LIGHT_CYAN);
-	printk("Adrian\n\n");
+	printk("Adrian");
 	vga_set_fg_color(VGA_COLOR_WHITE);
 	vga_set_bg_color(VGA_COLOR_BLACK);
+	printk(" ");
+	printk("\n\n");
 
 }
 
@@ -49,11 +51,11 @@ void	test_special_char(void)
 
 void	kernel_main(void) 
 {
-	// test_special_char();
+	test_special_char();
 	// vga_clear_buffer();
 	kernel_hello();	
 	gdt_init();
-	printmemk((char *)0x800,
-		( (nb_gdt_descriptor * size_gdt_descriptor) / 4));
+	// printmemk((char *)0x800,
+		// ( (nb_gdt_descriptor * size_gdt_descriptor) / 4));
 
 }
