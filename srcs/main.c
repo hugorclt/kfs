@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stddef.h>
+#include "debug/debug.h"
 #include "print.h"
 #include "gdt.h"
 #include "vga.h"
@@ -48,14 +49,20 @@ void	test_special_char(void)
 
 #define	nb_gdt_descriptor	7
 #define	size_gdt_descriptor	8
+void func() {
+	char *str = "hello, stack";
+	(void)str;
+	printmemk((void *)get_esp(), 24);
+}
 
 void	kernel_main(void) 
 {
-	test_special_char();
+	//test_special_char();
 	// vga_clear_buffer();
-	kernel_hello();	
+	//kernel_hello();	
 	gdt_init();
 	// printmemk((char *)0x800,
 		// ( (nb_gdt_descriptor * size_gdt_descriptor) / 4));
-
+	func();
 }
+

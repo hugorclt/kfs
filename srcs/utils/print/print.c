@@ -33,12 +33,12 @@ void 	printmemk(void *start, size_t byte)
 		printkhex((uint32_t)address);
 		printk(" : ");
 		printkhex(*address);
+		printk("     :    ");
+		vga_write_buffer((char)*address);
 		// vga_putnbr_hex(*(address + 1));
 		// vga_putnbr_hex(*(address + 2));
 		// vga_putnbr_hex(*(address + 3));
 		printk("\n");
-		if ( i % 2 == 1)
-			printk("\n");
 	}
 		
 }
