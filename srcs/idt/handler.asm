@@ -67,4 +67,5 @@ keyboard_handler_wrapper:
 	cld
 	call keyboard_handler
 	popa
+	sti
 	iret

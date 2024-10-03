@@ -57,7 +57,7 @@ void	kernel_main(void)
 	gdt_init();
 	idt_init();
 
-	printmemk((char *)0x800,
-		( (nb_gdt_descriptor * size_gdt_descriptor) / 4));
+	// printmemk((char *)0x800,
+		// ( (nb_gdt_descriptor * size_gdt_descriptor) / 4));
 	for (;;);
 }
