@@ -1,6 +1,6 @@
 #pragma once
 
-#include "stdint.h"
+#include <stdint.h>
 
 #define MAX_IDT_ENTRIES 256
 
@@ -17,4 +17,7 @@ typedef struct __attribute__((packed)) s_idt_descriptor {
 	uint16_t	i_handler_high;
 }	t_idt_descriptor;
 
+extern void*	isr_stub_table[];
+extern void		load_idt(t_idtr *idtr);
 
+void	idt_init(void);

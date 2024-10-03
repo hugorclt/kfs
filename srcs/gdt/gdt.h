@@ -20,6 +20,6 @@ typedef struct __attribute__ ((packed)) s_gdt_descriptor {
     uint8_t		base_high;
 }	t_gdt_descriptor;
 
-void gdt_init(void);
 extern void load_gdt(t_gdtr *gdt);
 
+void gdt_init(void);

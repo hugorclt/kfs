@@ -4,7 +4,7 @@
 t_gdtr					gdtr;
 static t_gdt_descriptor gdt[GDT_SIZE];
 
-void gdt_init_descriptor(uint32_t base, uint32_t limit,
+static void	gdt_init_descriptor(uint32_t base, uint32_t limit,
 	uint8_t access, uint8_t flags, t_gdt_descriptor *desc)
 {
     desc->limit_low		= (limit & 0xffff);
@@ -17,7 +17,7 @@ void gdt_init_descriptor(uint32_t base, uint32_t limit,
     return;
 }
 
-void gdt_init(void)
+void	gdt_init(void)
 {
     gdt_init_descriptor(0x0, 0x0, 0x0, 0x0, &gdt[0]);		/* NULL */
     gdt_init_descriptor(0x0, 0xFFFFF, 0x9B, 0x0D, &gdt[1]);	/* code */

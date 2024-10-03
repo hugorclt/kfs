@@ -1,8 +1,7 @@
-#include <stdint.h>
-#include <stddef.h>
 #include "debug/debug.h"
 #include "print.h"
 #include "gdt.h"
+#include "idt.h"
 #include "vga.h"
 
 
@@ -58,6 +57,7 @@ void	kernel_main(void)
 	// vga_clear_buffer();
 	// kernel_hello();	
 	gdt_init();
+	idt_init();
 	// int i = 0x42;
 	// int i2 = 0x42;
 	// int i3 = 0x42;
