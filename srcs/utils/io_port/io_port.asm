@@ -14,6 +14,6 @@ outb:
 	ret
 
 iowait:
-	push 0
-	push 0x80
-	call outb
+    mov al, 0
+    out 0x80, al
+    ret
