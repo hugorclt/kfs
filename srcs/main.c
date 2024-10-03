@@ -58,18 +58,18 @@ void	kernel_main(void)
 	// vga_clear_buffer();
 	// kernel_hello();	
 	gdt_init();
-	int i = 0x42;
-	int i2 = 0x42;
-	int i3 = 0x42;
-	int i4 = 0x42;
-	int i5 = 0x42;
-	int i6 = 0x42;
-	int i7 = 0x42;
-	int i8 = 0x42;
-	int i9 = 0x42;
-	int i10 = 0x42;
-	// printmemk((char *)0x800,
-	// 	( (nb_gdt_descriptor * size_gdt_descriptor) / 4));
-	printmemk((char *)0x4000, 1000);
+	// int i = 0x42;
+	// int i2 = 0x42;
+	// int i3 = 0x42;
+	// int i4 = 0x42;
+	// int i5 = 0x42;
+	// int i6 = 0x42;
+	// int i7 = 0x42;
+	// int i8 = 0x42;
+	// int i9 = 0x42;
+	// int i10 = 0x42;
+	printmemk((char *)0x800,
+		( (nb_gdt_descriptor * size_gdt_descriptor) / 4));
+	// printmemk((char *)0x4000, 1000);
 
 }
