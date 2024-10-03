@@ -21,4 +21,5 @@ typedef struct __attribute__ ((packed)) s_gdt_descriptor {
 }	t_gdt_descriptor;
 
 void gdt_init(void);
+extern void load_gdt(t_gdtr *gdt);
 
