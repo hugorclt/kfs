@@ -33,14 +33,5 @@ void gdt_init(void)
 
     memcpy((char *)gdtr.gdt, (char *)gdt, gdtr.size);
 
-    asm("lgdtl (gdtr)"); // --> (gdtr) takes address of gdtr
-
-    /* Load data and code segments */
-    asm("   movw $0x10, %ax   \n \
-            movw %ax, %ds    \n \
-            movw %ax, %es    \n \
-            movw %ax, %fs    \n \
-            movw %ax, %gs    \n \
-            ljmp $0x08, $next    \n \
-            next:        \n");
+    load_gdt(&gdtr);
 }
