@@ -54,7 +54,9 @@ void	kernel_main(void)
 	// vga_clear_buffer();
 	kernel_hello();	
 	gdt_init();
+	printk("Check\n");
 	idt_init();
+	printk("Check1\n");
 
 	// printmemk((char *)0x800,
 		// ( (nb_gdt_descriptor * size_gdt_descriptor) / 4));

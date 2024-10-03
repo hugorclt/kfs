@@ -2,6 +2,8 @@ global	isr_stub_table
 global 	keyboard_handler_wrapper
 extern	keyboard_handler
 extern 	exception_print
+extern	gp_handler
+global	general_p_fault_wrapper	
 
 halt_handler:
 	cli
@@ -69,5 +71,12 @@ keyboard_handler_wrapper:
 	cld
 	call keyboard_handler
 	popa
-	sti
+	iret
+
+general_p_fault_wrapper:
+	pusha
+	cld
+	call gp_handler
+	popa
+	hlt
 	iret

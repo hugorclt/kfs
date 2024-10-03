@@ -27,13 +27,21 @@ void	exception_print()
 	printk("Salut, Exception\n");
 }
 
+void gp_handler()
+{
+	printk("GG!\n");
+}
+
 void	idt_init(void)
 {
 	pic_init(0x20, 0x28);
 
     	for (uint8_t i = 0; i < 32; i++)
 	{
-        	idt_init_descriptor(i, isr_stub_table[i], 0x8E);
+		if (i == 13)
+        		idt_init_descriptor(i, general_p_fault_wrapper, 0x8E);
+		else 
+        		idt_init_descriptor(i, isr_stub_table[i], 0x8E);
     	}
 
 	//End of system interrupt, beginning of hardware interrupt (IRQ)
