@@ -37,8 +37,6 @@ void 	printmemk(void *start, size_t byte)
 		// vga_putnbr_hex(*(address + 2));
 		// vga_putnbr_hex(*(address + 3));
 		printk("\n");
-		if ( i % 2 == 1)
-			printk("\n");
 	}
 		
 }

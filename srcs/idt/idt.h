@@ -2,7 +2,7 @@
 
 #include "stdint.h"
 
-#define MAX_IDT_ENTRIES 255
+#define MAX_IDT_ENTRIES 256
 
 typedef struct __attribute__((packed)) s_idtr {
 	uint16_t	size;
@@ -17,5 +17,4 @@ typedef struct __attribute__((packed)) s_idt_descriptor {
 	uint16_t	i_handler_high;
 }	t_idt_descriptor;
 
-t_idtr			idtr;
-t_idt_descriptor	idt[MAX_IDT_ENTRIES];
+
