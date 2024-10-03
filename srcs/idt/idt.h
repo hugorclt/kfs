@@ -19,5 +19,6 @@ typedef struct __attribute__((packed)) s_idt_descriptor {
 
 extern void*	isr_stub_table[];
 extern void		load_idt(t_idtr *idtr);
+extern void	keyboard_handler_wrapper();
 
 void	idt_init(void);

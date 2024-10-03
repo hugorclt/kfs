@@ -1,4 +1,6 @@
 #include "idt.h"
+#include "idt/pic/pic.h"
+#include "print.h"
 
 __attribute__((aligned(0x10))) // aligned for performance
 static t_idt_descriptor	idt[MAX_IDT_ENTRIES];
@@ -14,16 +16,28 @@ static void	idt_init_descriptor(uint8_t i, void* handler, uint8_t flags)
     descriptor->i_handler_high		= (uint32_t)handler >> 16;
 }
 
-
+void	keyboard_handler()
+{
+	printk("Hello, Keyboard\n");
+	pic_send_eoi(KEYBOARD_IRQ);
+}
 
 void	idt_init(void)
 {
-    for (uint8_t i = 0; i < 32; i++)
-	{
-        idt_init_descriptor(i, isr_stub_table[i], 0x8E);
-    }
+	pic_init(0x20, 0x28);
 
-    idtr.size =	(uint16_t) sizeof(t_idt_descriptor) * MAX_IDT_ENTRIES - 1;
+    	for (uint8_t i = 0; i < 32; i++)
+	{
+        	idt_init_descriptor(i, isr_stub_table[i], 0x8E);
+    	}
+
+	//End of system interrupt, beginning of hardware interrupt (IRQ)
+	//https://wiki.osdev.org/Interrupts
+	//IRQ#0 == 32 : clock
+	//IRQ#1 == 33 : keyboard
+        idt_init_descriptor(33, keyboard_handler_wrapper, 0x8E);
+
+	idtr.size =	(uint16_t) sizeof(t_idt_descriptor) * MAX_IDT_ENTRIES - 1;
 	idtr.idt =	(uintptr_t) &idt[0];
 
 	load_idt(&idtr);

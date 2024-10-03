@@ -1,4 +1,6 @@
 global	isr_stub_table
+global 	keyboard_handler_wrapper
+extern	keyboard_handler
 
 halt_handler:
 	cli
@@ -59,3 +61,10 @@ isr_stub_table:
 	    dd isr_stub_%+i
 	%assign i i+1 
 	%endrep
+
+keyboard_handler_wrapper:
+	pusha
+	cld
+	call keyboard_handler
+	popa
+	iret
