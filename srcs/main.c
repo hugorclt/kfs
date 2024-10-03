@@ -3,6 +3,8 @@
 #include "gdt.h"
 #include "idt.h"
 #include "vga.h"
+#define	nb_gdt_descriptor	7
+#define	size_gdt_descriptor	8
 
 
 void	kernel_hello(void)
@@ -46,18 +48,15 @@ void	test_special_char(void)
 	
 }
 
-#define	nb_gdt_descriptor	7
-#define	size_gdt_descriptor	8
-
 void	kernel_main(void) 
 {
 	// test_special_char();
 	// vga_clear_buffer();
-	// kernel_hello();	
+	kernel_hello();	
 	gdt_init();
 	idt_init();
 
 	// printmemk((char *)0x800,
 		// ( (nb_gdt_descriptor * size_gdt_descriptor) / 4));
-	for (;;);
+	while(1);
 }

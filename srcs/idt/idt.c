@@ -22,6 +22,11 @@ void	keyboard_handler()
 	pic_send_eoi(KEYBOARD_IRQ);
 }
 
+void	exception_print()
+{
+	printk("Salut, Exception\n");
+}
+
 void	idt_init(void)
 {
 	pic_init(0x20, 0x28);
@@ -35,7 +40,7 @@ void	idt_init(void)
 	//https://wiki.osdev.org/Interrupts
 	//IRQ#0 == 32 : clock
 	//IRQ#1 == 33 : keyboard
-        idt_init_descriptor(33, &keyboard_handler_wrapper, 0x8E);
+        // idt_init_descriptor(33, &keyboard_handler_wrapper, 0x8E);
 
 	idtr.size =	(uint16_t) sizeof(t_idt_descriptor) * MAX_IDT_ENTRIES - 1;
 	idtr.idt =	(uintptr_t) &idt[0];

@@ -1,12 +1,14 @@
 global	isr_stub_table
 global 	keyboard_handler_wrapper
 extern	keyboard_handler
+extern 	exception_print
 
 halt_handler:
 	cli
 	hlt
 
 exception_handler:
+	call exception_print
 	pusha
 	jmp halt_handler
 
