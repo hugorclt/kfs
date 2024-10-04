@@ -17,13 +17,13 @@ exception_handler:
 %macro isr_err_stub 1
 isr_stub_%+%1:
     jmp exception_handler
-    iret 
+    iretd 
 %endmacro
 
 %macro isr_no_err_stub 1
 isr_stub_%+%1:
     jmp exception_handler
-    iret
+    iretd
 %endmacro
 
 isr_no_err_stub 0
@@ -71,7 +71,7 @@ keyboard_handler_wrapper:
 	cld
 	call keyboard_handler
 	popa
-	iret
+	iretd
 
 general_p_fault_wrapper:
 	pusha
@@ -79,4 +79,4 @@ general_p_fault_wrapper:
 	call gp_handler
 	popa
 	hlt
-	iret
+	iretd

@@ -38,4 +38,7 @@ void	pic_init(int offset1, int offset2)
 	//Clear mask
 	outb(PIC1_DATA, 0x0);
 	outb(PIC2_DATA, 0x0);
+
+	outb(PIC1_DATA, 0xFD);
+
 }
