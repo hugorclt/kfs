@@ -94,4 +94,4 @@ build: $(NAME)
 	$(MAKE) check_grub
 	$(MAKE) build_iso
 
-.PHONY: all clean fclean re check_grub build_iso run build
+.PHONY: all clean fclean re check_grub build_iso run build run-debug
