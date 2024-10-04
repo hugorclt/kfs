@@ -17,18 +17,20 @@ exception_handler:
 	call exception_print
 	jmp halt_handler
 
-general_p_fault_wrapper:
-	pusha
-	cld
-	call gp_handler
-	jmp halt_handler
-
 keyboard_handler_wrapper:
 	pusha
 	cld
 	call keyboard_handler
 	popa
-	iret
+	iretd
+
+general_p_fault_wrapper:
+	pusha
+	cld
+	call gp_handler
+	popa
+	hlt
+	iretd
 
 clock_handler_wrapper:
 	pusha
@@ -40,13 +42,13 @@ clock_handler_wrapper:
 %macro isr_err_stub 1
 isr_stub_%+%1:
     jmp exception_handler
-    iret 
+    iretd 
 %endmacro
 
 %macro isr_no_err_stub 1
 isr_stub_%+%1:
     jmp exception_handler
-    iret
+    iretd
 %endmacro
 
 isr_no_err_stub 0

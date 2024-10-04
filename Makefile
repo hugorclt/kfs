@@ -17,7 +17,7 @@ INCL        = $(addprefix -I, $(shell find $(SRC_DIR) -type d))
 CC          = gcc
 AS          = nasm
 LD          = ld
-CFLAGS      = -m32 -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+CFLAGS      = -m32 -std=gnu99 -ffreestanding -Wall -Wextra
 ASFLAGS     = -felf32
 LDFLAGS     = -m elf_i386 -nostdlib
 

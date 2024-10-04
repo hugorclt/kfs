@@ -15,11 +15,11 @@ typedef struct __attribute__ ((packed)) s_gdt_descriptor {
     uint16_t	base_low;
     uint8_t		base_mid;
     uint8_t		access;
-    uint8_t		limit_high	: 4;
-    uint8_t		flags		: 4;
+    uint8_t		flags;
     uint8_t		base_high;
 }	t_gdt_descriptor;
 
+// extern void load_gdt(uint32_t gdt);
 extern void load_gdt(t_gdtr *gdt);
 
 void gdt_init(void);

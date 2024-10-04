@@ -36,8 +36,8 @@ void	pic_init(int offset1, int offset2)
 	iowait();
 	
 	//Clear mask
-	outb(PIC1_DATA, 0x00);
-	outb(PIC2_DATA, 0x00);
+	// outb(PIC1_DATA, 0x00);
+	// outb(PIC2_DATA, 0x00);
 
 	// Disable everything
 	outb(PIC1_DATA, 0xFF);
