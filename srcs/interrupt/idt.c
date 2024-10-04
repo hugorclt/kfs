@@ -1,7 +1,8 @@
 #include "idt.h"
-#include "idt/pic/pic.h"
+#include "pic.h"
 #include "print.h"
 #include "io_port.h"
+#include "handler.h"
 
 __attribute__((aligned(0x10))) // aligned for performance
 static t_idt_descriptor	idt[MAX_IDT_ENTRIES];
@@ -16,30 +17,6 @@ static void	idt_init_descriptor(uint8_t i, uint32_t handler, uint8_t flags)
     descriptor->types_attributes	= flags;
     descriptor->i_handler_high		= (uint32_t)handler >> 16;
     descriptor->reserved		= 0;
-}
-
-void	keyboard_handler()
-{
-	printk("Hello, Keyboard\n");
-	 unsigned char scan_code = inb(0x60);
-	 (void)scan_code;
-	pic_send_eoi(KEYBOARD_IRQ);
-}
-
-void	clock_handler()
-{
-	// printk("In: Clock handler\n");
-	pic_send_eoi(CLOCK_IRQ);
-}
-
-void	exception_print()
-{
-	printk("In: System Exeption != 13 \n");
-}
-
-void	gp_handler()
-{
-	printk("In: General Protection Fault == 13\n");
 }
 
 void	idt_init(void)

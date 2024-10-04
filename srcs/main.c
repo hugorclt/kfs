@@ -53,17 +53,9 @@ void	kernel_main(void)
 	// test_special_char();
 	// vga_clear_buffer();
 	kernel_hello();
-
-	printk("Before gdt init\n");
 	gdt_init();
-	printk("After gdt init\n\n");
-
-	printk("Before idt init\n");
 	idt_init();
-	printk("After idt init\n");
 
-	// for (size_t i = 0; i < 10000000000; i++);
-	// printk("After a while\n");
 
 	// printmemk((char *)0x800,
 		// ( (nb_gdt_descriptor * size_gdt_descriptor) / 4));

@@ -22,9 +22,5 @@
 
 #define PIC_EOI		0x20		/* End-of-interrupt command code */
 
-#define CLOCK_IRQ		0
-#define KEYBOARD_IRQ	1
-
-
 void pic_send_eoi(uint8_t irq);
 void pic_init(int offset1, int offset2);
