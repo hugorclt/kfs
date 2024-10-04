@@ -84,6 +84,11 @@ run:
 	@echo "\033[1;32mKfs: Running kfs...\033[0m"
 	@qemu-system-x86_64 -cdrom $(NAME).iso -display sdl
 
+# Run the program in QEMU
+run-debug:
+	@echo "\033[1;32mKfs: Running kfs...\033[0m"
+	@qemu-system-x86_64 -cdrom $(NAME).iso -display sdl -d int
+
 # Build everything (check multiboot, build ISO)
 build: $(NAME)
 	$(MAKE) check_grub
