@@ -10,8 +10,14 @@ halt_handler:
 	hlt
 
 exception_handler:
-	call exception_print
 	pusha
+	call exception_print
+	jmp halt_handler
+
+general_p_fault_wrapper:
+	pusha
+	cld
+	call gp_handler
 	jmp halt_handler
 
 %macro isr_err_stub 1
@@ -71,12 +77,4 @@ keyboard_handler_wrapper:
 	cld
 	call keyboard_handler
 	popa
-	iret
-
-general_p_fault_wrapper:
-	pusha
-	cld
-	call gp_handler
-	popa
-	hlt
 	iret
