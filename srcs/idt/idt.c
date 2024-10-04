@@ -22,6 +22,12 @@ void	keyboard_handler()
 	pic_send_eoi(KEYBOARD_IRQ);
 }
 
+void	clock_handler()
+{
+	// printk("In: Clock handler\n");
+	pic_send_eoi(CLOCK_IRQ);
+}
+
 void	exception_print()
 {
 	printk("In: System Exeption != 13 \n");
@@ -34,7 +40,7 @@ void gp_handler()
 
 void	idt_init(void)
 {
-	// pic_init(0x20, 0x28);
+	pic_init(0x20, 0x28);
 
     for (uint8_t i = 0; i < 32; i++)
 	{
@@ -46,10 +52,13 @@ void	idt_init(void)
 
 	//End of system interrupt, beginning of hardware interrupt (IRQ)
 	//https://wiki.osdev.org/Interrupts
+
 	//IRQ#0 == 32 : clock
+    idt_init_descriptor(32, clock_handler_wrapper, 0x8E);
+
 
 	//IRQ#1 == 33 : keyboard
-    idt_init_descriptor(33, &keyboard_handler_wrapper, 0x8E);
+    idt_init_descriptor(33, keyboard_handler_wrapper, 0x8E);
 
 	idtr.size =	(uint16_t) sizeof(t_idt_descriptor) * MAX_IDT_ENTRIES - 1;
 	idtr.idt =	(uintptr_t) &idt[0];

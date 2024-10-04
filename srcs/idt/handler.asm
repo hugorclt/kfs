@@ -1,9 +1,12 @@
 global	isr_stub_table
 global 	keyboard_handler_wrapper
+global	general_p_fault_wrapper
+global	clock_handler_wrapper
+
 extern	keyboard_handler
+extern	clock_handler
 extern 	exception_print
 extern	gp_handler
-global	general_p_fault_wrapper	
 
 halt_handler:
 	cli
@@ -19,6 +22,20 @@ general_p_fault_wrapper:
 	cld
 	call gp_handler
 	jmp halt_handler
+
+keyboard_handler_wrapper:
+	pusha
+	cld
+	call keyboard_handler
+	popa
+	iret
+
+clock_handler_wrapper:
+	pusha
+	cld
+	call clock_handler
+	popa
+	iret
 
 %macro isr_err_stub 1
 isr_stub_%+%1:
@@ -71,10 +88,3 @@ isr_stub_table:
 	    dd isr_stub_%+i
 	%assign i i+1 
 	%endrep
-
-keyboard_handler_wrapper:
-	pusha
-	cld
-	call keyboard_handler
-	popa
-	iret

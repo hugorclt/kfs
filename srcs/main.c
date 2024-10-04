@@ -56,7 +56,7 @@ void	kernel_main(void)
 
 	printk("Before gdt init\n");
 	gdt_init();
-	printk("After gdt init\n");
+	printk("After gdt init\n\n");
 
 	printk("Before idt init\n");
 	idt_init();
