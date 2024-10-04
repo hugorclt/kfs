@@ -39,6 +39,9 @@ void	pic_init(int offset1, int offset2)
 	outb(PIC1_DATA, 0x00);
 	outb(PIC2_DATA, 0x00);
 
-	// outb(PIC1_DATA, 0xFD);
+	// Disable everything
 	// outb(PIC2_DATA, 0xFF);
+
+	// Disable everything but keyboard
+	// outb(PIC1_DATA, 0xFD);
 }
