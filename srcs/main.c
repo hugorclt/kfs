@@ -51,7 +51,7 @@ void	test_special_char(void)
 void	kernel_main(void) 
 {
 	// test_special_char();
-	// vga_clear_buffer();
+	vga_clear_buffer();
 	kernel_hello();
 	gdt_init();
 	idt_init();

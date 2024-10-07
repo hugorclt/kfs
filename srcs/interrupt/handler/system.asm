@@ -1,5 +1,5 @@
 global	system_handler_wrapper
-global	isr_stub_table
+global	system_isr_stub_table
 
 extern	system_handler
 
@@ -73,7 +73,7 @@ isr_no_err_stub 29
 isr_err_stub    30
 isr_no_err_stub 31
 
-isr_stub_table:
+system_isr_stub_table:
 	%assign i 0 
 	%rep    32 
 	    dd isr_stub_%+i

@@ -46,18 +46,14 @@ void system_handler(int err_code)
 		case 14:
 			printk("Page Fault\n");
 			break;
+		case 16:
+			printk("Floating Point Exception\n");
+			break;
+		case 17:
+			printk("Alignement Check\n");
+			break;
 		default:
-			printk("ISR code = undefined");
+			printk("ISR code = RESERVED\n");
 			break;
 	}
-}
-
-void	exception_print()
-{
-	printk("In: System Exeption != 13 \n");
-}
-
-void	gp_handler()
-{
-	printk("In: General Protection Fault == 13\n");
 }
