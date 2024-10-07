@@ -1,5 +1,7 @@
 global	system_handler_wrapper
 global	system_isr_stub_table
+global	fatal
+global	panic
 
 extern	system_handler
 

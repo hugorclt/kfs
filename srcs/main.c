@@ -60,6 +60,5 @@ void	kernel_main(void)
 
 	hexdump((char *)0x800,
 		( (nb_gdt_descriptor * size_gdt_descriptor) / 4));
-
 	while(1);
 }
