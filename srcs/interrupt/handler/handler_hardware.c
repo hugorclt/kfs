@@ -3,6 +3,7 @@
 #include "handler.h"
 #include "io_port.h"
 #include "pic.h"
+#include "ft_printf.h"
 
 #define K_DATA_PORT		0x60
 #define K_STATUS_PORT	0x64
@@ -62,12 +63,6 @@ void	keyboard_handler()
 	{
 		uint8_t	scan_code = inb(K_DATA_PORT);
 		if (scan_code <= 128)
-		{
-			char	str[2];
-			str[0] = keyboard_layout_QWERTY[scan_code];
-			str[1] = '\0';
-			printk(str);
-		}
-		
+			ft_printf("%c", keyboard_layout_QWERTY[scan_code]);
 	}
 }

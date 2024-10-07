@@ -50,8 +50,7 @@ int	what_var(char c, va_list arg_list)
 		return (ft_putstr_pf(va_arg(arg_list, char *)));
 	else if (c == 'p')
 	{
-		vga_write_buffer('0');
-		vga_write_buffer('x');
+		vga_write_buffer_str("0x");
 		return (2 + ft_putnbrlgbase_pf(va_arg(arg_list, unsigned long)));
 	}
 	else if (c == 'i' || c == 'd')

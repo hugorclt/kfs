@@ -20,14 +20,7 @@ int	ft_putstr_pf(char *s)
 
 	if (!s)
 	{
-		vga_write_buffer('(');
-		vga_write_buffer('n');
-		vga_write_buffer('u');
-		vga_write_buffer('l');
-		vga_write_buffer('l');
-		vga_write_buffer(')');
-
-
+		vga_write_buffer_str("(null)");
 		return (6);
 	}
 	len_str = 0;
