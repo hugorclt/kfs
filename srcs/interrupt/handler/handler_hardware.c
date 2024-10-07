@@ -68,7 +68,6 @@ void	clean_last_char()
 
 void	keyboard_handler()
 {
-	// TODO : handle on key press and ignore on key release
 	// Doc: http://www.brokenthorn.com/Resources/OSDev19.html
 
 	if (inb(K_STATUS_PORT) & 0x1)

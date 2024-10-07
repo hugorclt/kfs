@@ -33,8 +33,6 @@ void	kernel_main(void)
 	gdt_init();
 	idt_init();
 
-	
-
 	shell();
 	while(1);
 }
