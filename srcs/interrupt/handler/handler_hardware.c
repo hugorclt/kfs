@@ -1,7 +1,7 @@
 #include "print.h"
 #include "handler.h"
 #include "io_port.h"
-#include "pic.h"
+#include "../pic/pic.h"
 
 void	keyboard_handler()
 {
