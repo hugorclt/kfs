@@ -1,5 +1,6 @@
 #include "handler.h"
 #include "print.h"
+#include "printk.h"
 
 void system_handler(int err_code)
 {

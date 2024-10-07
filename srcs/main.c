@@ -1,5 +1,6 @@
 #include "debug/debug.h"
 #include "print.h"
+#include "printk.h"
 #include "gdt.h"
 #include "idt.h"
 #include "vga.h"

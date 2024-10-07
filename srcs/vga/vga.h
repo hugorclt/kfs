@@ -32,3 +32,4 @@ void	vga_set_fg_color(enum vga_color color);
 void	vga_putnbr_hex(uint32_t n);
 void	vga_clear_buffer();
 void	vga_write_buffer(unsigned char uc);
+void	vga_write_buffer_str(const char *str);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
+#include "printk.h"
 #include "vga.h"
 
 int	ft_putchar_pf(char c)

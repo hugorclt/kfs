@@ -1,5 +1,6 @@
 #include "vga.h"
 #include <io_port.h>
+#include "utils.h"
 
 static uint16_t*		vga_buffer	= (uint16_t*) 0xB8000;
 static size_t 			vga_y		= 0;
@@ -123,6 +124,25 @@ void					vga_write_buffer(unsigned char uc)
 	}
 	vga_update_cursor(vga_x, vga_y);
 }
+
+static size_t	strlen(const char* str)
+{
+	size_t	i = 0;
+	while(str[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
+void	vga_write_buffer_str(const char *str)
+{
+	for (size_t i = 0; i < strlen(str); i++)
+	{
+		vga_write_buffer(str[i]);
+	}
+}
+
 
 void					vga_clear_buffer()
 {

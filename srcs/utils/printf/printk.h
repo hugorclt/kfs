@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   printk.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajung <ajung@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -17,7 +17,7 @@
 # include <stdint.h>
 
 int		what_var(char c, va_list arg_list);
-int		ft_printf(const char *str, ...);
+int		printk(const char *str, ...);
 int		ft_putnbr_pf(int n);
 int		ft_uputnbr_pf(unsigned int n);
 int		ft_putstr_pf(char *s);

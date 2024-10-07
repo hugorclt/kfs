@@ -1,6 +1,7 @@
 #include "idt.h"
 #include "pic.h"
 #include "print.h"
+#include "printk.h"
 #include "io_port.h"
 #include "handler.h"
 #include <stdint.h>

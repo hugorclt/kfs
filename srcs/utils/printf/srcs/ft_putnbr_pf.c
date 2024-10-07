@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
+#include "printk.h"
 #include "vga.h"
 
 static int	is_int_min(void);
@@ -43,17 +43,7 @@ int	ft_putnbr_pf(int n)
 
 static int	is_int_min(void)
 {
-	vga_write_buffer('-');
-	vga_write_buffer('2');
-	vga_write_buffer('1');
-	vga_write_buffer('4');
-	vga_write_buffer('7');
-	vga_write_buffer('4');
-	vga_write_buffer('8');
-	vga_write_buffer('3');
-	vga_write_buffer('6');
-	vga_write_buffer('4');
-	vga_write_buffer('8');
+	vga_write_buffer_str("-2147483648");
 	return (11);
 }
 
