@@ -27,7 +27,3 @@ void	keyboard_handler()
 	 (void)scan_code;
 }
 
-void	clock_handler()
-{
-	// printk("In: Clock handler\n");
-}
