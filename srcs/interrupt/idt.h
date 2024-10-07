@@ -18,10 +18,10 @@ typedef struct __attribute__((packed)) s_idt_descriptor {
 }	t_idt_descriptor;
 
 extern void*	isr_stub_table[];
+extern void*	irq_stub_table[];
 extern void		load_idt(t_idtr *idtr);
 extern void		keyboard_handler_wrapper();
 extern void		clock_handler_wrapper();
-
 extern void		general_p_fault_wrapper();
 
 void	idt_init(void);
