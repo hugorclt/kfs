@@ -54,6 +54,18 @@ void	keyboard_init()
 	register_interrupt_handler(KEYBOARD, keyboard_handler);
 }
 
+static char	last_char = '\0';
+
+char	get_last_char()
+{
+	return (last_char);
+}
+
+void	clean_last_char()
+{
+	last_char = '\0';
+}
+
 void	keyboard_handler()
 {
 	// TODO : handle on key press and ignore on key release
@@ -62,7 +74,11 @@ void	keyboard_handler()
 	if (inb(K_STATUS_PORT) & 0x1)
 	{
 		uint8_t	scan_code = inb(K_DATA_PORT);
-		if (scan_code <= 128)
-			printk("%c", keyboard_layout_QWERTY[scan_code]);
+		char	c = keyboard_layout_QWERTY[scan_code];
+		if (scan_code <= 127 && c != '\0')
+		{
+			printk("%c", c);
+			last_char = c;
+		}
 	}
 }
