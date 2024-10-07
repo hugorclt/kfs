@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
+#include "printk.h"
 #include "vga.h"
 
-int	ft_printf(const char *str, ...)
+int	printk(const char *str, ...)
 {
 	va_list	arg_list;
 	int		i;

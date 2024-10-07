@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
+#include "printk.h"
 #include "vga.h"
 
 static int	is_int_min(void);
