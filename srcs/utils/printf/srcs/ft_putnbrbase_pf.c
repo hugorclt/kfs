@@ -42,6 +42,8 @@ int	ft_putnbrbase_maj_pf(unsigned int nb)
 	output = 0;
 	if (nb < 10)
 	{
+		if (nb == 0)
+			ft_putchar_pf('0');
 		ft_putchar_pf(nb + '0');
 		output++;
 	}

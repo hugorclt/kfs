@@ -1,5 +1,5 @@
-#include "debug/debug.h"
-#include "print.h"
+#include "debug.h"
+#include "commands.h"
 #include "printk.h"
 #include "gdt.h"
 #include "idt.h"
@@ -58,8 +58,8 @@ void	kernel_main(void)
 	idt_init();
 
 
-	// printmemk((char *)0x800,
-		// ( (nb_gdt_descriptor * size_gdt_descriptor) / 4));
+	hexdump((char *)0x800,
+		( (nb_gdt_descriptor * size_gdt_descriptor) / 4));
 
 	while(1);
 }
