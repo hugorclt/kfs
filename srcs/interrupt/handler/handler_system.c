@@ -52,6 +52,24 @@ void system_handler(int err_code)
 		case 17:
 			printk("Alignement Check\n");
 			break;
+		case 18:
+			printk("Machine check\n");
+			break;
+		case 19:
+			printk("SIMD Floating Point Exception\n");
+			break;
+		case 20:
+			printk("Virtualization Exception\n");
+			break;
+		case 21:
+			printk("Hypervisor Injection Exception\n");
+			break;
+		case 28:
+			printk("VMM Communication Exception\n");
+			break;
+		case 29:
+			printk("Security Exception\n");
+			break;
 		default:
 			printk("ISR code = RESERVED\n");
 			break;
