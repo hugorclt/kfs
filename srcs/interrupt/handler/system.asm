@@ -1,54 +1,43 @@
+global	system_handler_wrapper
 global	isr_stub_table
-global 	keyboard_handler_wrapper
-global	general_p_fault_wrapper
-global	clock_handler_wrapper
 
-extern	keyboard_handler
-extern	clock_handler
-extern 	exception_print
-extern	gp_handler
+extern	system_handler
 
-halt_handler:
+fatal:
+	xor edi, edi
+	xor esi, esi
+	xor ebp, ebp
+	xor esp, esp
+	xor eax, eax
+	xor edx, edx
+	xor edx, edx
+	xor ecx, ecx
 	cli
 	hlt
 
-exception_handler:
+panic:
 	pusha
-	call exception_print
-	jmp halt_handler
-
-keyboard_handler_wrapper:
-	pusha
-	cld
-	call keyboard_handler
-	popa
-	iretd
-
-general_p_fault_wrapper:
-	pusha
-	cld
-	call gp_handler
-	popa
+	cli
 	hlt
-	iretd
 
-clock_handler_wrapper:
-	pusha
-	cld
-	call clock_handler
-	popa
-	iret
+system_handler_wrapper:
+    call system_handler
+    call panic
+    sti
+    iret
 
 %macro isr_err_stub 1
 isr_stub_%+%1:
-    jmp exception_handler
-    iretd 
+	cli
+	push byte %1
+	jmp system_handler_wrapper 
 %endmacro
 
 %macro isr_no_err_stub 1
 isr_stub_%+%1:
-    jmp exception_handler
-    iretd
+	cli
+	push byte %1
+	jmp system_handler_wrapper 
 %endmacro
 
 isr_no_err_stub 0

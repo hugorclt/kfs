@@ -1,7 +1,22 @@
+#include "pic.h"
 #include "print.h"
 #include "handler.h"
 #include "io_port.h"
-#include "../pic/pic.h"
+
+
+void	hardware_handler(int code) 
+{
+	printkhex(code);
+	printk("\n");
+	launch_interrupt(code);
+	pic_send_eoi(code - 31);
+
+}
+
+void	keyboard_init()
+{
+	register_interrupt_handler(KEYBOARD, keyboard_handler);
+}
 
 void	keyboard_handler()
 {
@@ -10,11 +25,9 @@ void	keyboard_handler()
 	printk("Hello, Keyboard\n");
 	 unsigned char scan_code = inb(0x60);
 	 (void)scan_code;
-	pic_send_eoi(KEYBOARD_IRQ);
 }
 
 void	clock_handler()
 {
 	// printk("In: Clock handler\n");
-	pic_send_eoi(CLOCK_IRQ);
 }
