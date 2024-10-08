@@ -6,30 +6,6 @@
 #include "commands.h"
 #include "vga.h"
 
-static void	fill_user_input(char *input)
-{
-	char	c = '\0';
-	do
-	{
-		c = get_last_char();
-		if (c == '\0' || c == '\n')
-			continue ;
-		if (c == '\b')
-		{
-			input[strlen(input) - 1] = '\0';
-			vga_erase_last_char();
-		}
-		else 
-		{
-			input[strlen(input)] = c;
-			input[strlen(input) + 1] = '\0';
-		}
-		clean_last_char();
-	}
-	while(c != '\n');
-	clean_last_char();
-}
-
 static bool	check_user_input(const char *input, const char *cmd)
 {
 	if (strlen(input) != strlen(cmd))
@@ -51,12 +27,13 @@ void	shell(void)
 {
 	vga_clear_buffer();
 	cmd_hello();
+	print_prompt();
 
 	while (1)
 	{
-		char	input[2048] = {0}; // proteger si on ecrit 2049 ?
-		print_prompt();
-		fill_user_input(input);
+		char	*input = get_stdin();
+		if (!input)
+			continue;
 
 		if (strlen(input) == 0)
 			continue ;
@@ -78,5 +55,7 @@ void	shell(void)
 			panic();
 		else
 			printk("Error: unknown cmd: %s\n", input);
+		print_prompt();
+		clean_stdin();
 	}
 }

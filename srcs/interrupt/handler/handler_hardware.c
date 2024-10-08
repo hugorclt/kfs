@@ -4,6 +4,8 @@
 #include "io_port.h"
 #include "pic.h"
 #include "printk.h"
+#include "utils.h"
+#include "vga.h"
 
 #define K_DATA_PORT		0x60
 #define K_STATUS_PORT	0x64
@@ -54,16 +56,42 @@ void	keyboard_init()
 	register_interrupt_handler(KEYBOARD, keyboard_handler);
 }
 
-static char	last_char = '\0';
+char	stdin[128] = {0};
 
-char	get_last_char()
+char*	get_stdin(void)
 {
-	return (last_char);
+	if (stdin[strlen(stdin) - 1] == '\n')
+	{
+		stdin[strlen(stdin) - 1] = '\0';
+		return (stdin);
+	}
+	else
+		return (NULL);
 }
 
-void	clean_last_char()
+void	clean_stdin(void)
 {
-	last_char = '\0';
+	memset(&stdin, '\0', strlen(stdin));
+}
+
+static void	write_stdin(char c)
+{
+	if (c == '\b')
+	{
+		stdin[strlen(stdin) - 1] = '\0';
+		vga_erase_last_char();
+	}
+	else
+	{
+		stdin[strlen(stdin)] = c;
+		stdin[strlen(stdin) + 1] = '\0';
+	}
+}
+
+static void	write_vga(char c, uint8_t scan_code)
+{
+	if (scan_code <= 127 && c != '\0' && c != '\b')
+		printk("%c", c);
 }
 
 void	keyboard_handler()
@@ -74,8 +102,8 @@ void	keyboard_handler()
 	{
 		uint8_t	scan_code = inb(K_DATA_PORT);
 		char	c = keyboard_layout_QWERTY[scan_code];
-		if (scan_code <= 127 && c != '\0' && c != '\b')
-			printk("%c", c);
-		last_char = c;
+
+		write_vga(c, scan_code);
+		write_stdin(c);	
 	}
 }
