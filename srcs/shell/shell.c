@@ -34,8 +34,8 @@ void	shell(void)
 		if (!input)
 			continue;
 
-		if (strlen(input) == 0)
-			continue ;
+		// if (strlen(input) == 0)
+		// 	continue ;
 		else if (check_user_input(input, "stack"))
 			cmd_hexdump((void *)get_esp(), 20);
 		else if (check_user_input(input, "ping"))
@@ -52,7 +52,7 @@ void	shell(void)
 			cmd_help();
 		else if (check_user_input(input, "halt"))
 			panic();
-		else
+		else if (strlen(input) != 0)
 			printk("Error: unknown cmd: %s\n", input);
 		print_prompt();
 		clean_stdin();

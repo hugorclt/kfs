@@ -95,6 +95,16 @@ static void	write_vga(char c, uint8_t scan_code)
 		printk("%c", c);
 }
 
+static void	check_stdin_size()
+{
+	if (strlen(stdin) > 80)
+	{
+		clean_stdin();
+		vga_clear_buffer();
+		printk("error: user input should be <= 80 characters\n");
+	}
+}
+
 void	keyboard_handler()
 {
 	// Doc: http://www.brokenthorn.com/Resources/OSDev19.html
@@ -103,7 +113,7 @@ void	keyboard_handler()
 	{
 		uint8_t	scan_code = inb(K_DATA_PORT);
 		char	c = keyboard_layout_QWERTY[scan_code];
-
+		check_stdin_size();
 		write_vga(c, scan_code);
 		write_stdin(c);	
 	}
