@@ -23,11 +23,12 @@ static void	fill_user_input(char *input)
 		{
 			input[strlen(input)] = c;
 			input[strlen(input) + 1] = '\0';
+			printk("%c", c);
 		}
-		clean_last_char();
 	}
-	while(c != '\n');
-	clean_last_char();
+	while(c != '\n' && strlen(input) < (80 - strlen("KFS>")));
+	if (c == '\n')
+		printk("\n");
 }
 
 static bool	check_user_input(const char *input, const char *cmd)
@@ -54,7 +55,7 @@ void	shell(void)
 
 	while (1)
 	{
-		char	input[2048] = {0}; // proteger si on ecrit 2049 ?
+		char	input[128] = {0}; 
 		print_prompt();
 		fill_user_input(input);
 

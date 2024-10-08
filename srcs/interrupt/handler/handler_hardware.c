@@ -3,7 +3,6 @@
 #include "handler.h"
 #include "io_port.h"
 #include "pic.h"
-#include "printk.h"
 
 #define K_DATA_PORT		0x60
 #define K_STATUS_PORT	0x64
@@ -58,12 +57,9 @@ static char	last_char = '\0';
 
 char	get_last_char()
 {
-	return (last_char);
-}
-
-void	clean_last_char()
-{
+	char ret = last_char;
 	last_char = '\0';
+	return (ret);
 }
 
 void	keyboard_handler()
@@ -73,9 +69,8 @@ void	keyboard_handler()
 	if (inb(K_STATUS_PORT) & 0x1)
 	{
 		uint8_t	scan_code = inb(K_DATA_PORT);
-		char	c = keyboard_layout_QWERTY[scan_code];
-		if (scan_code <= 127 && c != '\0' && c != '\b')
-			printk("%c", c);
-		last_char = c;
+		if (scan_code > 127)
+			return ;
+		last_char = keyboard_layout_QWERTY[scan_code];
 	}
 }

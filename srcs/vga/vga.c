@@ -112,7 +112,8 @@ void					vga_erase_last_char()
 		return ;
 	if (vga_x != 4)
 		vga_x -= 1;
-	vga_buffer[vga_index(vga_x, vga_y)] = ' ';
+	size_t index = vga_index(vga_x, vga_y);
+	vga_buffer[index] = vga_entry(' ', fg_color, bg_color);
 	vga_update_cursor(vga_x, vga_y);
 }
 
