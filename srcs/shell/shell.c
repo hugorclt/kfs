@@ -66,6 +66,8 @@ void	shell(void)
 			cmd_hello();
 		else if (check_user_input(input, "help"))
 			cmd_help();
+		else if (check_user_input(input, "halt"))
+			panic();
 		else
 			printk("Error: unknown cmd: %s\n", input);
 	}
