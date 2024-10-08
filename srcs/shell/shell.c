@@ -14,8 +14,16 @@ static void	fill_user_input(char *input)
 		c = get_last_char();
 		if (c == '\0' || c == '\n')
 			continue ;
-		input[strlen(input)] = c;
-		input[strlen(input) + 1] = '\0';
+		if (c == '\b')
+		{
+			input[strlen(input) - 1] = '\0';
+			vga_erase_last_char();
+		}
+		else 
+		{
+			input[strlen(input)] = c;
+			input[strlen(input) + 1] = '\0';
+		}
 		clean_last_char();
 	}
 	while(c != '\n');

@@ -106,6 +106,16 @@ static void					vga_write_char(unsigned char uc)
 	vga_x += 1;
 }
 
+void					vga_erase_last_char()
+{
+	if (vga_x < 4)
+		return ;
+	if (vga_x != 4)
+		vga_x -= 1;
+	vga_buffer[vga_index(vga_x, vga_y)] = ' ';
+	vga_update_cursor(vga_x, vga_y);
+}
+
 void					vga_write_buffer(unsigned char uc)
 {
 	if (!vga_write_special_char(uc))
