@@ -4,3 +4,4 @@ sudo apt install qemu-system libvirt-daemon-system qemu-system-gui mtools xorris
 sudo apt install texinfo
 sudo apt install grub-common
 sudo apt install grub-pc-bin
+sudo apt install nasm
