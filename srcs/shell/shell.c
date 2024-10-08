@@ -20,7 +20,6 @@ static void	print_prompt(void)
 	vga_set_fg_color(VGA_COLOR_BROWN);
 	printk(">");
 	vga_set_fg_color(VGA_COLOR_WHITE);
-
 }
 
 void	shell(void)

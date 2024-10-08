@@ -79,7 +79,6 @@ static void	write_stdin(char c)
 	if (c == '\b')
 	{
 		stdin[strlen(stdin) - 1] = '\0';
-		vga_erase_last_char();
 	}
 	else
 	{
@@ -90,6 +89,8 @@ static void	write_stdin(char c)
 
 static void	write_vga(char c, uint8_t scan_code)
 {
+	if (c == '\b')
+		vga_erase_last_char();
 	if (scan_code <= 127 && c != '\0' && c != '\b')
 		printk("%c", c);
 }
