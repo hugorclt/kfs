@@ -74,10 +74,8 @@ void	keyboard_handler()
 	{
 		uint8_t	scan_code = inb(K_DATA_PORT);
 		char	c = keyboard_layout_QWERTY[scan_code];
-		if (scan_code <= 127 && c != '\0')
-		{
+		if (scan_code <= 127 && c != '\0' && c != '\b')
 			printk("%c", c);
-			last_char = c;
-		}
+		last_char = c;
 	}
 }
