@@ -5,9 +5,11 @@
 #include <stdint.h>
 
 
-void 	hexdump(void *start, size_t byte);
-void	ping();
-void shutdown();
-void reboot();
-extern void panic();
-extern void fatal();
+void		cmd_hexdump(void *start, size_t byte);
+void		cmd_ping(void);
+void		cmd_shutdown(void);
+void		cmd_reboot(void);
+void		cmd_hello(void);
+void		cmd_help(void);
+extern void	panic();
+extern void	fatal();

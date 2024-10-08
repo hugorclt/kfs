@@ -14,7 +14,7 @@
 /* Check if bit n in flags is set */
 #define check_flag(flags, n) ((flags) & bit(n))
 
-void reboot()
+void cmd_reboot()
 {
     uint8_t temp;
 

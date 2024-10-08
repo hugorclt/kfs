@@ -1,7 +1,7 @@
 #include "commands.h"
 #include <stdint.h>
 
-void 	hexdump(void *start, size_t byte)
+void 	cmd_hexdump(void *start, size_t byte)
 {
 	for (size_t i = 0; i < byte; i++) {
 		uint8_t *address = start + i * 8;

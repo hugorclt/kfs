@@ -1,7 +1,7 @@
 #include "commands.h"
 #include "io_port.h"
 
-void shutdown() 
+void cmd_shutdown() 
 {
    outw(0x604, 0x2000);
 }
