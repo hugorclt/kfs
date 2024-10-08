@@ -1,8 +1,11 @@
 #include "shell.h"
+#include "debug.h"
 #include "printk.h"
 #include "handler.h"
 #include "utils.h"
 #include "commands.h"
+#include <stdint.h>
+
 
 void	fill_user_input(char *input)
 {
@@ -20,9 +23,6 @@ void	fill_user_input(char *input)
 	clean_last_char();
 }
 
-#define	nb_gdt_descriptor	7
-#define	size_gdt_descriptor	8
-
 void	shell(void)
 {
 	while (1)
@@ -33,10 +33,9 @@ void	shell(void)
 
 		if (strlen(input) == 0)
 			continue ;
-		else if (!strncmp(input, "hexdump", strlen(input)))
+		else if (!strncmp(input, "stack", strlen(input)))
 		{
-			hexdump((char *)0x800,
-			( (nb_gdt_descriptor * size_gdt_descriptor) / 4));
+			hexdump((void *)get_esp(), 20);
 		}
 		else if (!strncmp(input, "ping", strlen(input)))
 			ping();
