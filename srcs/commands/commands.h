@@ -11,6 +11,5 @@ void		cmd_shutdown(void);
 void		cmd_reboot(void);
 void		cmd_hello(void);
 void		cmd_help(void);
-void		cmd_halt(void);
 extern void	panic();
 extern void	fatal();
