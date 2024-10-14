@@ -9,3 +9,5 @@ isodir
 
 *.o
 .objs
+
+bx_enh_dbg.ini
