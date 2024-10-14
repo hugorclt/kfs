@@ -30,6 +30,7 @@ stack_top:
 section .text
 global _start:function (_start.end - _start)
 _start:
+	cli
 	; base physical address of pages directory
 	mov eax, (initial_page_dir - KERNEL_VIRTUAL_BASE)
 	mov cr3, eax

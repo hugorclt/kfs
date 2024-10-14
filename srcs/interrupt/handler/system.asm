@@ -25,7 +25,6 @@ panic:
 system_handler_wrapper:
     call system_handler
     call panic
-    sti
     iret
 
 %macro isr_err_stub 1
