@@ -4,6 +4,7 @@
 #include "io_port.h"
 #include "handler.h"
 #include <stdint.h>
+#include "utils.h"
 
 __attribute__((aligned(0x10))) // aligned for performance
 	static t_idt_descriptor	idt[MAX_IDT_ENTRIES];
@@ -22,6 +23,10 @@ static void	idt_init_descriptor(uint8_t i, uint32_t handler, uint8_t flags)
 
 void	idt_init(void)
 {
+	idtr.size =	(uint16_t) sizeof(t_idt_descriptor) * MAX_IDT_ENTRIES - 1;
+	idtr.idt =	(uintptr_t) &idt[0];
+	memset(&idt, 0, sizeof(t_idt_descriptor) * MAX_IDT_ENTRIES);
+	
 	pic_init(0x20, 0x28);
 
 	for (uint8_t i = 0; i < 32; i++)
@@ -29,8 +34,7 @@ void	idt_init(void)
 	for (uint8_t i = 0; i < 16; i++)
 		idt_init_descriptor(i + 32, (uint32_t) hardware_isr_stub_table[i], 0x8E);
 
-	idtr.size =	(uint16_t) sizeof(t_idt_descriptor) * MAX_IDT_ENTRIES - 1;
-	idtr.idt =	(uintptr_t) &idt[0];
+	
 
 	interrupt_handlers_init();
 	keyboard_init();
