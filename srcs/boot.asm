@@ -30,11 +30,22 @@ stack_top:
 section .text
 global _start:function (_start.end - _start)
 _start:
+	; base physical address of pages directory
+	mov eax, (initial_page_dir - KERNEL_VIRTUAL_BASE)
+	mov cr3, eax
 
-	; To set up a stack, we set the esp register to point to the top of our
-	; stack (as it grows downwards on x86 systems). This is necessarily done
-	; in assembly as languages such as C cannot function without a stack.
+	; 0x010 enable 4MiB pages
+	mov ecx, cr4
+	or ecx, 0x10
+	mov cr4, ecx
+
+	; paging enabled (bit 31)
+	mov ecx, cr0
+	or ecx, 0x80000000
+	mov cr0, ecx
+
 	mov esp, stack_top
+	xor ebp, ebp
 
 	extern kernel_main
 	call kernel_main
@@ -55,3 +66,4 @@ initial_page_dir:
 	dd ( 1 << 22 ) | 10000011b
 	dd ( 2 << 22 ) | 10000011b
 	dd ( 3 << 22 ) | 10000011b
+	times (1024 - KERNEL_PAGE_NUMBER - 4) DD 0

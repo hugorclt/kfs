@@ -3,6 +3,7 @@
 #include "utils.h"
 
 static uint16_t*		vga_buffer	= (uint16_t*) 0xB8000;
+// static uint16_t*		vga_buffer	= (uint16_t*) 0xC008000;
 static size_t 			vga_y		= 0;
 static size_t			vga_x		= 0;
 static enum vga_color	fg_color	= VGA_COLOR_WHITE;
