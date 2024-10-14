@@ -10,6 +10,7 @@ load_gdt:
    mov es, ax
    mov ax, 0x18         ; 0x18 is the offset in the GDT to our kernel stack
    mov ss, ax
-   jmp 0x08:.flush      ; 0x08 is the offset to our code segment: far jump on it
+   jmp 0x08:.flush 
+   ret     ; 0x08 is the offset to our code segment: far jump on it
 .flush:
    ret
