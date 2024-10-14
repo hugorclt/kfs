@@ -44,7 +44,7 @@ $(NAME): build_objects
 	@echo "\033[0;32m\nLinking... $(NAME)\033[0m"
 	@$(LD) $(LDFLAGS) -T $(LINKER_FILE) -o $(NAME) $(OBJS)
 	@make build_iso
-	@# @echo "\033[1;32mKfs: Goodbye! :)) \033[0m"
+	@echo "\033[1;32mKfs: compiled and assembled! :)) \033[0m"
 
 # Default target
 all: $(NAME)
@@ -82,11 +82,13 @@ build_iso:
 run:
 	@echo "\033[1;32mKfs: Running kfs...\033[0m"
 	@qemu-system-x86_64 -cdrom $(NAME).iso -display sdl
+	@echo "\033[1;32mKfs: Goodbye! :)) \033[0m"
 
 # Run the program in QEMU
 run-debug:
 	@echo "\033[1;32mKfs: Running kfs...\033[0m"
 	@qemu-system-x86_64 -cdrom $(NAME).iso -display sdl -d int
+	@echo "\033[1;32mKfs: Goodbye! :)) \033[0m"
 
 # Build everything (check multiboot, build ISO)
 build: $(NAME)
