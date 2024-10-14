@@ -44,8 +44,7 @@ $(NAME): build_objects
 	@echo "\033[0;32m\nLinking... $(NAME)\033[0m"
 	@$(LD) $(LDFLAGS) -T $(LINKER_FILE) -o $(NAME) $(OBJS)
 	@make build_iso
-	@make run
-	@echo "\033[1;32mKfs: Goodbye! :)) \033[0m"
+	@# @echo "\033[1;32mKfs: Goodbye! :)) \033[0m"
 
 # Default target
 all: $(NAME)
