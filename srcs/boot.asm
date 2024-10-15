@@ -15,6 +15,12 @@ align 4
 	dd MAGIC
 	dd MBFLAGS
 	dd CHECKSUM
+	dd 0, 0, 0, 0, 0
+
+	dd 0
+	dd 800
+	dd 600
+	dd 32
 
 KERNEL_VIRTUAL_BASE equ 0xC0000000                  ; 3GB
 KERNEL_PAGE_NUMBER equ (KERNEL_VIRTUAL_BASE >> 22)  ; Page directory index of kernel's 4MB PTE.
@@ -31,9 +37,10 @@ section .text
 global _start:function (_start.end - _start)
 _start:
 	cli
+	
 	; base physical address of pages directory
-	mov eax, (initial_page_dir - KERNEL_VIRTUAL_BASE)
-	mov cr3, eax
+	mov ecx, (initial_page_dir - KERNEL_VIRTUAL_BASE)
+	mov cr3, ecx 
 
 	; 0x010 enable 4MiB pages
 	mov ecx, cr4
@@ -46,6 +53,8 @@ _start:
 	mov cr0, ecx
 
 	mov esp, stack_top
+	push ebx
+	push eax
 	xor ebp, ebp
 
 	extern kernel_main

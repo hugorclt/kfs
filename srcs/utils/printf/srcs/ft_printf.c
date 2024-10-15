@@ -27,7 +27,7 @@ int	printk(const char *str, ...)
 		if (str[i] == '%')
 		{
 			i++;
-			result += what_var(str[i], arg_list);
+			result += what_var(str[i], &arg_list);
 		}
 		else
 		{
@@ -40,26 +40,26 @@ int	printk(const char *str, ...)
 	return (result);
 }
 
-int	what_var(char c, va_list arg_list)
+int	what_var(char c, va_list *arg_list)
 {
 	if (c == 'c')
-		return (ft_putchar_pf((char)va_arg(arg_list, int)));
+		return (ft_putchar_pf((char)va_arg(*arg_list, int)));
 	else if (c == '%')
 		return (ft_putchar_pf('%'));
 	else if (c == 's')
-		return (ft_putstr_pf(va_arg(arg_list, char *)));
+		return (ft_putstr_pf(va_arg(*arg_list, char *)));
 	else if (c == 'p')
 	{
 		vga_write_buffer_str("0x");
-		return (2 + ft_putnbrlgbase_pf(va_arg(arg_list, unsigned long)));
+		return (2 + ft_putnbrlgbase_pf(va_arg(*arg_list, unsigned long)));
 	}
 	else if (c == 'i' || c == 'd')
-		return (ft_putnbr_pf(va_arg(arg_list, int)));
+		return (ft_putnbr_pf(va_arg(*arg_list, int)));
 	else if (c == 'u')
-		return (ft_uputnbr_pf(va_arg(arg_list, unsigned int)));
+		return (ft_uputnbr_pf(va_arg(*arg_list, unsigned int)));
 	else if (c == 'x')
-		return (ft_putnbrbase_pf(va_arg(arg_list, unsigned int)));
+		return (ft_putnbrbase_pf(va_arg(*arg_list, unsigned int)));
 	else if (c == 'X')
-		return (ft_putnbrbase_maj_pf(va_arg(arg_list, unsigned int)));
+		return (ft_putnbrbase_maj_pf(va_arg(*arg_list, unsigned int)));
 	return (0);
 }

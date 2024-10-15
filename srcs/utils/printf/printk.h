@@ -16,7 +16,7 @@
 # include <stdarg.h>
 # include <stdint.h>
 
-int		what_var(char c, va_list arg_list);
+int		what_var(char c, va_list *arg_list);
 int		printk(const char *str, ...);
 int		ft_putnbr_pf(int n);
 int		ft_uputnbr_pf(unsigned int n);
