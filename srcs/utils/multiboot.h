@@ -1,3 +1,5 @@
+#pragma once
+
 #include "stdint.h"
 
 /* The symbol table for a.out. */

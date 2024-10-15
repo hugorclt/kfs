@@ -6,9 +6,11 @@
 #define PAGE_4MB 0x80
 
 #include <stdint.h>
+#include "multiboot.h"
+
+void print_memory_map(multiboot_info_t *bootInfo);
 
 typedef struct s_page_directory
 {
     uint32_t entries[1024];
 } t_page_directory;
-
