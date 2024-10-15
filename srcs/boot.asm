@@ -18,7 +18,7 @@ align 4
 
 KERNEL_VIRTUAL_BASE equ 0xC0000000                  ; 3GB
 KERNEL_PAGE_NUMBER equ (KERNEL_VIRTUAL_BASE >> 22)  ; Page directory index of kernel's 4MB PTE.
-
+; 768*4*1024*1024 = 0xC0000000
 
 section .bss
 align 16
