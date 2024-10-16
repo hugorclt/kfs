@@ -30,7 +30,6 @@ void	init_memory_var(multiboot_info_t *bootInfo)
 		if (map_entry->type == MULTIBOOT_MEMORY_AVAILABLE)
 		{
 			start_physical_memory = map_entry->addr_low;
-			printk("%d\n", map_entry->len_low);
 			total_page_frame = map_entry->len_low / PAGE_FRAME_SIZE;
 			return ;
 		}		
@@ -57,10 +56,8 @@ static void	init_bitmap()
 		bitmap[i] = FREE;
 	}
 	uintptr_t addr_start_kernel = (uintptr_t) &kernel_physical_start;
-	printk("kernel physical start addr = %d\n", addr_start_kernel);
 	size_t kernel_page_index = get_page_frame_index(addr_start_kernel);
 	bitmap[kernel_page_index] = ALLOCATED;
-	printk("kernel page index = %d\n", kernel_page_index);
 }
 
 static uintptr_t	allocate_page_frame()
@@ -82,17 +79,28 @@ void	free_page_frame(uintptr_t addr)
 	bitmap[get_page_frame_index(addr)] = FREE;
 }
 
+void	test_physical_allocator(void)
+{
+	uintptr_t addr_start_kernel = (uintptr_t) &kernel_physical_start;
+	printk("kernel physical start addr = %p\n", addr_start_kernel);
+	size_t kernel_page_index = get_page_frame_index(addr_start_kernel);
+	printk("kernel page index = %d\n", kernel_page_index);
+
+	uintptr_t addr1 = allocate_page_frame();
+	uintptr_t addr2 = allocate_page_frame();
+	printk("total_page_frame = %d\n", total_page_frame);
+	printk("addr1 = %p\n", addr1);
+	printk("addr2 = %p\n", addr2);
+	free_page_frame(addr1);
+	addr1 = allocate_page_frame();
+	printk("addr1 = %p\n", addr1);
+	uintptr_t addr3 = allocate_page_frame();
+	printk("addr3 = %p\n", addr3);
+	printk("\n\n");
+}
+
 void	init_memory(multiboot_info_t *bootInfo)
 {
 	init_memory_var(bootInfo);
 	init_bitmap();
-	uintptr_t addr1 = allocate_page_frame();
-	uintptr_t addr2 = allocate_page_frame();
-	printk("%d\n", total_page_frame);
-	printk("addr1 = %p\n", addr1);
-	printk("addr2 = %p\n", addr2);
-	printk("\n\n");
-
-	
-
 }

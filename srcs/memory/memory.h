@@ -14,6 +14,8 @@ extern void kernel_physical_start(void);
 extern void kernel_physical_end(void);
 
 void	print_memory_map(multiboot_info_t *bootInfo);
+void	test_physical_allocator(void);
+
 void	init_memory(multiboot_info_t *bootInfo);
 
 // typedef struct s_page_directory

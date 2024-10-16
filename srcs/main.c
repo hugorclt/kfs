@@ -15,6 +15,10 @@ void	kernel_main(uint32_t magic, multiboot_info_t *bootInfo)
 	idt_init();
 	init_memory(bootInfo);
 
+	//debug
+	test_physical_allocator();
+	// print_memory_map(bootInfo);
+
 	// shell();
 	while(1);
 }
