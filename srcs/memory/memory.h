@@ -46,3 +46,9 @@ free_page_frame(uintptr_t addr) {
 
 	bitmap[i] = FREE;
 }
+
+uintptr_t test = allocate_page_frame();
+u
+vmalloc() {
+	page_directory[ + 1] = formule pour convertir physique to virtual
+}
