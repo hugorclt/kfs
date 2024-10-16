@@ -13,6 +13,7 @@ void	kernel_main(uint32_t magic, multiboot_info_t *bootInfo)
 	(void) magic;
 	gdt_init();
 	idt_init();
+	init_memory(bootInfo);
 
 	print_memory_map(bootInfo);
 	// shell();
