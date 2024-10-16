@@ -10,6 +10,8 @@ SECTIONS
 	}
 
 	. += 0xC0000000;
+	kernel_virtual_start = .;
+	kernel_physical_start = . - 0xC0000000;
 
 	.text ALIGN(4K) : AT(ADDR(.text) - 0xC0000000)
 	{
@@ -35,6 +37,7 @@ SECTIONS
 		*(.bss)
 	}
 
-	_kernel_end = .;
+	kernel_virtual_end = .;
+	kernel_physical_end = . - 0xC0000000;
 
 }
