@@ -5,7 +5,7 @@
 #include "idt.h"
 #include "vga.h"
 #include "shell.h"
-#include "memory.h"
+#include "pmm.h"
 #include "multiboot.h"
 
 void	kernel_main(uint32_t magic, multiboot_info_t *bootInfo) 

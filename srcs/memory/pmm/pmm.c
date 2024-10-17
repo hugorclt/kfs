@@ -1,4 +1,4 @@
-#include "memory.h"
+#include "pmm.h"
 #include "printk.h"
 #include "stddef.h"
 
@@ -99,8 +99,10 @@ void	test_physical_allocator(void)
 	printk("\n\n");
 }
 
+
 void	init_memory(multiboot_info_t *bootInfo)
 {
 	init_memory_var(bootInfo);
 	init_bitmap();
+
 }
