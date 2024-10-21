@@ -58,8 +58,13 @@ static void	init_bitmap()
 		bitmap[i] = FREE;
 	}
 	uintptr_t addr_start_kernel = (uintptr_t) &kernel_physical_start;
+	//0xC0000000 + kernelSize*512
 	size_t kernel_page_index = get_page_frame_index(addr_start_kernel);
-	bitmap[kernel_page_index] = ALLOCATED;
+	// bitmap[kernel_page_index] = ALLOCATED;
+	for (size_t i = 0; i < 1024; i++)
+	{
+		bitmap[kernel_page_index + i] = ALLOCATED;
+	}
 }
 
 void	*pmm_allocate()
@@ -111,7 +116,9 @@ void	pmm_free(uintptr_t addr)
 
 void	test_physical_allocator(void)
 {
-	uintptr_t addr_start_kernel = (uintptr_t) &kernel_physical_start;
+	// uintptr_t addr_start_kernel = (uintptr_t) &kernel_physical_start;
+	uintptr_t addr_start_kernel = (uintptr_t) 0x100000;
+
 	printk("kernel physical start addr = %p\n", addr_start_kernel);
 	size_t kernel_page_index = get_page_frame_index(addr_start_kernel);
 	printk("kernel page index = %d\n", kernel_page_index);

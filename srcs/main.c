@@ -12,15 +12,29 @@
 
 void	kernel_main(uint32_t magic, multiboot_info_t *bootInfo) 
 {
-	pmm_init(bootInfo);
-	vmm_init();
+	
 	(void) magic;
 	(void) bootInfo;
 	gdt_init();
-	idt_init();
+
+	printk("before pmm init\n");
 	
+	pmm_init(bootInfo);
+	printk("after pmm init\n");
+
+	printk("\n------- Memory Map ---------\n");
+	print_memory_map(bootInfo);
+	printk("----------------------------\n");
+
+
+	printk("before vmm init\n");
+	vmm_init();
+	printk("after vmm init\n");
+
+	idt_init();
+
 	shell();
 
-	// shell();
+	
 	while(1);
 }

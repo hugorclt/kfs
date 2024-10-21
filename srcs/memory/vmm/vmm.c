@@ -6,6 +6,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "utils.h"
+#include "printk.h"
 
 bool	vmm_alloc_page(uintptr_t *entry)
 {
@@ -71,12 +72,15 @@ void	vmm_map_page(uintptr_t physical_address, uintptr_t virtual_address)
 
 void	vmm_init()
 {
+	printk("In vmm init\n");
 	t_page_table *identity_page = pmm_allocate();
 	if (!identity_page)
 	{
 		//TODO: out of memory
 		return ;
 	}
+	printk("pmm_allocate OK\n");
+	printk("adress of identity page: %p\n", identity_page);
 
 	t_page_table *kernel_page = pmm_allocate();
 	if (!kernel_page)
@@ -84,9 +88,16 @@ void	vmm_init()
 		//TODO: out of memory
 		return ;
 	}
+	printk("pmm_allocate 2 OK\n");
+	printk("adress of kernel_page page: %p\n", kernel_page);
+
 
 	memset(identity_page, 0, sizeof(t_page_table));
+	printk("memset identity page OK\n");
+
 	memset(kernel_page, 0, sizeof(t_page_table));
+
+	printk("memset kernel page OK\n");
 
 	// Identity mapping
 	for (size_t i = 0, frame=0x0, virt=0x0; i < 1024; i++, frame += 4096, virt += 4096)
@@ -98,6 +109,8 @@ void	vmm_init()
 		identity_page->entries[PAGE_TABLE_INDEX(virt)] = page;
 	}
 
+	printk("init identity page\n");
+
 	//kernel map 7768
 	for (size_t i = 0, frame=0x100000, virt=0xc0000000; i < 1024; i++, frame += 4096, virt += 4096)
 	{
@@ -107,6 +120,8 @@ void	vmm_init()
 
 		kernel_page->entries[PAGE_TABLE_INDEX(virt)] = page;
 	}
+	printk("init kernel page\n");
+
 	
 	t_page_directory *dir = pmm_allocate_blocks(3);
 	if (!dir)
@@ -115,7 +130,11 @@ void	vmm_init()
 		return ;
 	}
 
+	printk("allocate 3 blocks\n");
+
 	memset(dir, 0, sizeof(t_page_directory));
+	printk("memset page dir ok\n");
+
 
 	uint32_t *pde_identity = &dir->entries[PAGE_DIRECTORY_INDEX(0x0)];
 	pde_add_attrib(pde_identity, PDE_PRESENT);
@@ -127,5 +146,7 @@ void	vmm_init()
 	pde_add_attrib(pde_kernel, PDE_READ_WRITE);
 	pde_add_phys_addr(pde_kernel, (uint32_t)kernel_page);
 
-	enable_paging(true, (uint32_t)dir);
+	enable_paging((uint32_t)dir);
+	printk("TEST\n");
+
 }
