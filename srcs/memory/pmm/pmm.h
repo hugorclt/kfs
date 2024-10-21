@@ -1,10 +1,5 @@
 #pragma once
 
-#define PAGE_PRESENT 0x1
-#define PAGE_RW 0x2
-#define PAGE_USER 0x4
-#define PAGE_4MB 0x80
-
 #include <stdint.h>
 #include "multiboot.h"
 
@@ -16,16 +11,13 @@ extern void kernel_physical_end(void);
 void	print_memory_map(multiboot_info_t *bootInfo);
 void	test_physical_allocator(void);
 
-void	init_memory(multiboot_info_t *bootInfo);
-
-// typedef struct s_page_directory
-// {
-//     uint32_t entries[1024];
-// } t_page_directory;
+void	pmm_init(multiboot_info_t *bootInfo);
+void	*pmm_allocate();
+void	pmm_free(uintptr_t addr);
 
 
-#define PAGE_FRAME_SIZE		4194304 // 4 Mib
-#define MAX_PAGE_FRAME		1024
+#define PAGE_FRAME_SIZE		4096// 4 KiB
+#define MAX_PAGE_FRAME		1024 * 1024
 
 #define FREE		0
 #define	ALLOCATED	1

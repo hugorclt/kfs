@@ -1,6 +1,7 @@
 #include "pmm.h"
 #include "printk.h"
 #include "stddef.h"
+#include <stdint.h>
 
 uint32_t	total_page_frame;
 uintptr_t	start_physical_memory;
@@ -60,21 +61,21 @@ static void	init_bitmap()
 	bitmap[kernel_page_index] = ALLOCATED;
 }
 
-static uintptr_t	allocate_page_frame()
+void	*pmm_allocate()
 {
 	for (size_t i = 0; i < total_page_frame; i++)
 	{
 		if (bitmap[i] == FREE)
 		{
 			bitmap[i] = ALLOCATED;
-			return (get_page_frame_addr(i));
+			return ((void*)get_page_frame_addr(i));
 		}
 	}
 	// HANDLE ERROR: if no page left to alloc
 	return (0);
 }
 
-void	free_page_frame(uintptr_t addr)
+void	pmm_free(uintptr_t addr)
 {
 	bitmap[get_page_frame_index(addr)] = FREE;
 }
@@ -86,23 +87,22 @@ void	test_physical_allocator(void)
 	size_t kernel_page_index = get_page_frame_index(addr_start_kernel);
 	printk("kernel page index = %d\n", kernel_page_index);
 
-	uintptr_t addr1 = allocate_page_frame();
-	uintptr_t addr2 = allocate_page_frame();
+	uintptr_t addr1 = (uintptr_t)pmm_allocate();
+	uintptr_t addr2 = (uintptr_t)pmm_allocate();
 	printk("total_page_frame = %d\n", total_page_frame);
 	printk("addr1 = %p\n", addr1);
 	printk("addr2 = %p\n", addr2);
-	free_page_frame(addr1);
-	addr1 = allocate_page_frame();
+	pmm_free(addr1);
+	addr1 = (uintptr_t)pmm_allocate();
 	printk("addr1 = %p\n", addr1);
-	uintptr_t addr3 = allocate_page_frame();
+	uintptr_t addr3 = (uintptr_t)pmm_allocate();
 	printk("addr3 = %p\n", addr3);
 	printk("\n\n");
 }
 
 
-void	init_memory(multiboot_info_t *bootInfo)
+void	pmm_init(multiboot_info_t *bootInfo)
 {
 	init_memory_var(bootInfo);
 	init_bitmap();
-
 }

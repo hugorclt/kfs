@@ -7,17 +7,16 @@
 #include "shell.h"
 #include "pmm.h"
 #include "multiboot.h"
+#include <stdint.h>
+
+#define CEIL_DIV(a,b) (((a + b) - 1) / b)
 
 void	kernel_main(uint32_t magic, multiboot_info_t *bootInfo) 
 {
 	(void) magic;
 	gdt_init();
 	idt_init();
-	init_memory(bootInfo);
 
-	//debug
-	test_physical_allocator();
-	// print_memory_map(bootInfo);
 
 	// shell();
 	while(1);
