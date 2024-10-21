@@ -2,6 +2,7 @@
 #include "printk.h"
 #include "stddef.h"
 #include <stdint.h>
+#include "stdbool.h"
 
 uint32_t	total_page_frame;
 uintptr_t	start_physical_memory;
@@ -73,6 +74,34 @@ void	*pmm_allocate()
 	}
 	// HANDLE ERROR: if no page left to alloc
 	return (0);
+}
+
+void	*pmm_allocate_blocks(size_t	n)
+{
+	for (size_t i = 0; i < total_page_frame; i++)
+	{
+		if (bitmap[i] == FREE)
+		{
+			size_t	start_of_free_blocks = i;
+			size_t	j = i;
+			bool	array_found = false;
+			while (bitmap[j] == FREE && array_found == false)
+			{
+				if (j - start_of_free_blocks >= n)
+					array_found = true;
+				j++;
+			}
+			if (array_found == true)
+			{
+				for (size_t k = start_of_free_blocks; k < n; k++)
+				{
+					bitmap[k] = ALLOCATED;
+				}
+				return ((void*)get_page_frame_addr(start_of_free_blocks));
+			}
+		}
+	}
+	return (NULL);
 }
 
 void	pmm_free(uintptr_t addr)

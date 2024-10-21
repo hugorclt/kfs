@@ -13,6 +13,7 @@ void	test_physical_allocator(void);
 
 void	pmm_init(multiboot_info_t *bootInfo);
 void	*pmm_allocate();
+void	*pmm_allocate_blocks(size_t	n);
 void	pmm_free(uintptr_t addr);
 
 
