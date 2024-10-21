@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 #include "multiboot.h"
+#include <stddef.h>
 
 extern void kernel_virtual_start(void);
 extern void kernel_virtual_end(void);

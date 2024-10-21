@@ -4,12 +4,13 @@ global enable_paging
 flush_tlb_entry:
 	cli
 	mov eax, [esp + 4]
-	invlpg eax
+	invlpg [eax]
 	sti
 
 enable_paging:
 	mov cr0, eax
-	cmp [esp + 4], 1
+	mov ecx, [esp + 4]
+	cmp ecx, 1
 	je enable
 	jne disable
 	ret
@@ -25,4 +26,3 @@ disable:
 	and eax, 0x7FFFFFFF
 	mov cr0, eax
 	ret
-

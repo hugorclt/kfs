@@ -24,7 +24,7 @@ bool	pde_look_attrib(uint32_t *entry, uint32_t flag)
 	return ((*entry & flag) == flag);
 }
 
-void	pde_add_phys_addr(uint32_t *entry, void *target)
+void	pde_add_phys_addr(uint32_t *entry, uint32_t target)
 {
 	(*entry) = (target & 0xFFFFF000) | (*entry & 0x00000FFF);
 }
@@ -43,4 +43,3 @@ uintptr_t pde_find_pt_addr(uint32_t *entry)
 {
 	return ((*entry) & 0xFFFFF000);
 }
-

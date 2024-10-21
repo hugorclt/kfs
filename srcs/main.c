@@ -6,17 +6,20 @@
 #include "vga.h"
 #include "shell.h"
 #include "pmm.h"
+#include "vmm.h"
 #include "multiboot.h"
 #include <stdint.h>
 
-#define CEIL_DIV(a,b) (((a + b) - 1) / b)
-
 void	kernel_main(uint32_t magic, multiboot_info_t *bootInfo) 
 {
+	pmm_init(bootInfo);
+	vmm_init();
 	(void) magic;
+	(void) bootInfo;
 	gdt_init();
 	idt_init();
-
+	
+	shell();
 
 	// shell();
 	while(1);

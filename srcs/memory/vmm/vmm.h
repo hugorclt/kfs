@@ -10,5 +10,4 @@
 
 extern void flush_tlb_entry(uint32_t entry);
 extern void enable_paging(bool enable, uint32_t dir);
-
-
+void		vmm_init();
