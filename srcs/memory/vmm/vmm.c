@@ -100,7 +100,7 @@ void	vmm_init()
 	}
 
 	//kernel map 7768
-	for (size_t i = 0, frame=0x100000, virt=0xC0000000; i < 1024; i++, frame += 4096, virt += 4096)
+	for (size_t i = 0, frame=0x000000, virt=0xC0000000; i < 1024; i++, frame += 4096, virt += 4096)
 	{
 		uint32_t page = 0;
 		pte_add_attrib(&page, I86_PTE_PRESENT);

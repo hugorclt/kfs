@@ -9,6 +9,7 @@
 #include "vmm.h"
 #include "multiboot.h"
 #include <stdint.h>
+#include "utils.h"
 
 void	kernel_main(uint32_t magic, multiboot_info_t *bootInfo) 
 {
