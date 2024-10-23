@@ -10,6 +10,7 @@
 #include "multiboot.h"
 #include <stdint.h>
 #include "utils.h"
+#include "kmalloc.h"
 
 void	kernel_main(uint32_t magic, multiboot_info_t *bootInfo) 
 {
@@ -21,7 +22,14 @@ void	kernel_main(uint32_t magic, multiboot_info_t *bootInfo)
 	print_memory_map(bootInfo);
 
 
-	shell();
+	// shell();
+	char *str = (char *) kmalloc(10 * sizeof(char));
+	for (size_t i = 0; i < 9; i++)
+	{
+		str[i] = 'A';
+	}
+	str[9] = '\0';
+	printk("%s\n", str);
 
 	while(1);
 }
