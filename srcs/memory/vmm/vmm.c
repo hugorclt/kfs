@@ -99,7 +99,7 @@ void	vmm_init()
 		identity_page->entries[PAGE_TABLE_INDEX(virt)] = page;
 	}
 
-	//kernel map 7768
+	//kernel map 768
 	for (size_t i = 0, frame=0x000000, virt=0xC0000000; i < 1024; i++, frame += 4096, virt += 4096)
 	{
 		uint32_t page = 0;
@@ -131,4 +131,13 @@ void	vmm_init()
 
 	enable_paging((uint32_t)dir);
 
+	/*
+	// disable identity mapping ?
+	for (size_t i = 0, frame=0x0, virt=0x0; i < 1024; i++, frame += 4096, virt += 4096)
+	{
+
+		identity_page->entries[PAGE_TABLE_INDEX(virt)] = 0;
+		flush_tlb_entry(virt);
+	}
+	*/
 }
