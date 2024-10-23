@@ -19,7 +19,7 @@ void	kernel_main(uint32_t magic, multiboot_info_t *bootInfo)
 	pmm_init(bootInfo);
 	vmm_init();
 	idt_init();
-	print_memory_map(bootInfo);
+	// print_memory_map(bootInfo);
 
 
 	// shell();

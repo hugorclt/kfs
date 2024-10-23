@@ -46,25 +46,43 @@ uint32_t *vmm_directory_lookup(t_page_directory *page_directory, uintptr_t virtu
 
 bool	vmm_map_page(uintptr_t physical_address, uintptr_t virtual_address)
 {
+	printk("vmm_map_page: enter\n");
+
 	t_page_directory *dir = get_page_dir();
+	printk("vmm_map_page: after get_page_dir()\n");
+
 
 	uint32_t *dir_entry = vmm_directory_lookup(dir, virtual_address);
+		printk("dir_entry: %X\n", dir_entry);
+		printk("page directory index: %d\n", PAGE_DIRECTORY_INDEX(virtual_address));
+
 	if (!pde_look_attrib(dir_entry, PDE_PRESENT))
 	{
 		t_page_table *pt_phys = (t_page_table *)pmm_allocate();
+
 		if (pt_phys == NULL)
 			return (false);
 
 		pde_add_attrib(dir_entry, PDE_PRESENT);
 		pde_add_attrib(dir_entry, PDE_READ_WRITE);
-		pde_add_phys_addr(dir_entry, (uint32_t)pt_phys);		
+		pde_add_phys_addr(dir_entry, (uint32_t)pt_phys);
+		printk("dir_entry 2: %X\n", dir_entry);
+
 	}
 
 	t_page_table *pt_phys = (t_page_table *)PAGE_GET_PHYSICAL_ADDRESS(dir_entry);
 	uint32_t *tab_entry = vmm_table_lookup(pt_phys, virtual_address);
+		printk("tab_entry: %X\n", tab_entry);
+
 
 	pte_add_attrib(tab_entry, I86_PTE_PRESENT);
+		printk("vmm_map_page: after pte_add_attrib()\n");
+
 	pte_add_phys_addr(tab_entry, physical_address);
+		printk("vmm_map_page: after pte_add_phys_addr()\n");
+
+	printk("vmm_map_page: exit\n");
+
 	return (true);
 }
 
@@ -128,15 +146,30 @@ void	vmm_init()
 	pde_add_phys_addr(pde_kernel, (uint32_t)kernel_page);
 
 	enable_paging((uint32_t)dir);
+	printk("pde_kernel: %X\n", pde_kernel);
+
 }
 
 bool	vmm_alloc_page(uintptr_t virtual_address)
 {
+	printk("vmm_alloc_page: enter\n");
+	printk("vmm_alloc_page: virtual addresss: %X\n", virtual_address);
+
+
+	printk("before pmm_allocate\n");
 	void *p = pmm_allocate();
+	printk("after pmm_allocate\n");
+
 	if (!p)
 		return (false);
 
 	if (!vmm_map_page((uintptr_t)p, virtual_address))
+	{
+		printk("vmm_map_page: bool return error\n");
 		return (false);
+		
+	}
+	printk("vmm_alloc_page: exit\n");
+	
 	return (true);
 }
