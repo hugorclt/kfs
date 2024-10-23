@@ -11,6 +11,7 @@
 extern void flush_tlb_entry(uint32_t entry);
 // extern void enable_paging(bool enable, uint32_t dir);
 extern void enable_paging(uint32_t dir);
+bool	vmm_alloc_page(uintptr_t virtual_address);
 
 
 void		vmm_init();

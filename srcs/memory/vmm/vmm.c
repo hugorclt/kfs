@@ -8,18 +8,18 @@
 #include "utils.h"
 #include "printk.h"
 
-bool	vmm_alloc_page(uintptr_t *entry)
-{
-	void *p = pmm_allocate();
-
-	if (!p)
-		return (false);
-
-	pte_add_phys_addr(entry, (uintptr_t)p);
-	pte_add_attrib(entry, I86_PTE_WRITABLE);
-	pte_add_attrib(entry, I86_PTE_PRESENT);
-	return (true);
-}
+// bool	vmm_alloc_page(uintptr_t *entry)
+// {
+// 	void *p = pmm_allocate();
+//
+// 	if (!p)
+// 		return (false);
+//
+// 	pte_add_phys_addr(entry, (uintptr_t)p);
+// 	pte_add_attrib(entry, I86_PTE_WRITABLE);
+// 	pte_add_attrib(entry, I86_PTE_PRESENT);
+// 	return (true);
+// }
 
 void	vmm_free_page(uint32_t *entry)
 {
@@ -44,7 +44,7 @@ uint32_t *vmm_directory_lookup(t_page_directory *page_directory, uintptr_t virtu
 	return (NULL);
 }
 
-void	vmm_map_page(uintptr_t physical_address, uintptr_t virtual_address)
+bool	vmm_map_page(uintptr_t physical_address, uintptr_t virtual_address)
 {
 	t_page_directory *dir = get_page_dir();
 
@@ -53,10 +53,7 @@ void	vmm_map_page(uintptr_t physical_address, uintptr_t virtual_address)
 	{
 		t_page_table *pt_phys = (t_page_table *)pmm_allocate();
 		if (pt_phys == NULL)
-		{
-			// TODO: out of memory
-			return ;
-		}
+			return (false);
 
 		pde_add_attrib(dir_entry, PDE_PRESENT);
 		pde_add_attrib(dir_entry, PDE_READ_WRITE);
@@ -68,6 +65,7 @@ void	vmm_map_page(uintptr_t physical_address, uintptr_t virtual_address)
 
 	pte_add_attrib(tab_entry, I86_PTE_PRESENT);
 	pte_add_phys_addr(tab_entry, physical_address);
+	return (true);
 }
 
 void	vmm_init()
@@ -75,14 +73,14 @@ void	vmm_init()
 	t_page_table *identity_page = pmm_allocate();
 	if (!identity_page)
 	{
-		//TODO: out of memory
+		printk("Out of Memory\n");
 		return ;
 	}
 
 	t_page_table *kernel_page = pmm_allocate();
 	if (!kernel_page)
 	{
-		//TODO: out of memory
+		printk("Out of Memory\n");
 		return ;
 	}
 
@@ -112,7 +110,7 @@ void	vmm_init()
 	t_page_directory *dir = pmm_allocate_blocks(3);
 	if (!dir)
 	{
-		//TODO: out of memory
+		printk("Out of Memory\n");
 		return ;
 	}
 
@@ -130,14 +128,15 @@ void	vmm_init()
 	pde_add_phys_addr(pde_kernel, (uint32_t)kernel_page);
 
 	enable_paging((uint32_t)dir);
+}
 
-	/*
-	// disable identity mapping ?
-	for (size_t i = 0, frame=0x0, virt=0x0; i < 1024; i++, frame += 4096, virt += 4096)
-	{
+bool	vmm_alloc_page(uintptr_t virtual_address)
+{
+	void *p = pmm_allocate();
+	if (!p)
+		return (false);
 
-		identity_page->entries[PAGE_TABLE_INDEX(virt)] = 0;
-		flush_tlb_entry(virt);
-	}
-	*/
+	if (!vmm_map_page((uintptr_t)p, virtual_address))
+		return (false);
+	return (true);
 }
