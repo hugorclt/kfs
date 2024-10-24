@@ -13,5 +13,8 @@ extern void flush_tlb_entry(uint32_t entry);
 extern void enable_paging(uint32_t dir);
 bool	vmm_alloc_page(uintptr_t virtual_address);
 
+#define PAGE_TABLE_VIRTUAL 0xFFC00000
+#define PAGE_DIR_VIRTUAL 0xFFFFF000
+
 
 void		vmm_init();

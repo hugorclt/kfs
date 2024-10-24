@@ -16,7 +16,9 @@ size_t		header_padding = sizeof(t_list_allocator);
 t_list_allocator *create_node(void *addr, size_t size)
 {
 	t_list_allocator *new_node = (t_list_allocator*)addr;
+		printk("test\n");
 	new_node->size = size;
+		printk("test2\n");
 	new_node->next = NULL;
 	
 	return (new_node);
@@ -101,7 +103,7 @@ void	*kmalloc(size_t size)
 	if (!free_block)
 	{
 		void *new_space = sbrk(real_size);
-		printk("new space: %X\n", new_space);
+		printk("%p\n", new_space);
 		if (!new_space)
 			return (NULL);
 		t_list_allocator *new_node = create_node(new_space,  (real_size / PAGE_FRAME_SIZE + 1) * 4096); 
