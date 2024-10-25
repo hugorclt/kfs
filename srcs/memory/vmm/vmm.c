@@ -163,18 +163,16 @@ void	vmm_init()
 		kernel_page->entries[PAGE_TABLE_INDEX(virt)] = page;
 	}
 	
-	for (size_t j = 0; j < 1024; j++)
+	for (size_t i = 0, frame=0x1200000, virt=0xC0400000; i < 1024; i++, frame += 4096, virt += 4096)
 	{
 		uint32_t page = 0;
-		for (size_t i = 0, frame=0x500000 + (j * 4096), virt=0xC0400000 + (j * 4096); i < 1024; i++, frame += 4096, virt += 4096)
-		{
-			pte_add_attrib(&page, I86_PTE_PRESENT);
-			pte_add_phys_addr(&page, frame);
+		pte_add_attrib(&page, I86_PTE_PRESENT);
+		pte_add_attrib(&page, I86_PTE_WRITABLE);
+		pte_add_phys_addr(&page, frame);
 
-			heap_page->entries[PAGE_TABLE_INDEX(virt)] = page;
-		}
-
+		heap_page->entries[PAGE_TABLE_INDEX(virt)] = page;
 	}
+
 	
 	t_page_directory *dir = pmm_allocate_blocks(3);
 	if (!dir)
