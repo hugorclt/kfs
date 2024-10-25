@@ -19,9 +19,10 @@ void	kernel_main(uint32_t magic, multiboot_info_t *bootInfo)
 	idt_init();
 	pmm_init(bootInfo);
 	vmm_init();
-	kmalloc_test();
+	// kmalloc_test();
 
 	// shell();
 
+	char *ptr = kmalloc(4194304 - 9);
 	while(1);
 }
