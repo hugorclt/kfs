@@ -57,17 +57,10 @@ void	kernel_main(uint32_t magic, multiboot_info_t *bootInfo)
 	idt_init();
 	pmm_init(bootInfo);
 	vmm_init();
-
-	// print_memory_map(bootInfo);
-	// malloc_test();
+	// kmalloc_test();
 
 	// shell();
 
-	kmalloc_test();
-
-	// shell();
-
-	printk("infinite loop \n");
-
+	char *ptr = kmalloc(4194304 - 9);
 	while(1);
 }
