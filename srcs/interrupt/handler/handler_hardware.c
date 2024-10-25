@@ -42,6 +42,62 @@ char keyboard_layout_QWERTY [128] =
     0,  /* All other keys are undefined */
 };
 
+char keyboard_layout_AZERTY[128] = {
+    0,  27, '&', 0, '"', '\'', '(', '-', 0, '_', 0, 0, ')', '=', '\b',   
+    0,   /* <-- Tab */
+  'a', 'z', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '^', '$', '\n',     
+    0,   /* <-- Control key */
+  'q', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 0, '`',   0,  '*', 'w', 'x', 'c', 'v', 'b', 'n', ',', ';', ':', '!',   0,
+  '*',
+    0,   /* Alt */
+  ' ',   /* Space bar */
+    0,   /* Caps lock */
+    0,   /* 59 - F1 key ... > */
+    0,    0,    0,    0,    0,    0,    0,    0,
+    0,   /* < ... F10 */
+    0,   /* 69 - Num lock */
+    0,   /* Scroll Lock */
+    0,   /* Home key */
+    0,   /* Up Arrow */
+    0,   /* Page Up */
+  '-',
+    0,   /* Left Arrow */
+    0,
+    0,   /* Right Arrow */
+  '+',
+    0,   /* 79 - End key */
+    0,   /* Down Arrow */
+    0,   /* Page Down */
+    0,   /* Insert Key */
+    0,   /* Delete Key */
+    0,    0,    0,
+    0,   /* F11 Key */
+    0,   /* F12 Key */
+    0    /* All other keys are undefined */
+};
+
+char *actual_layout = keyboard_layout_QWERTY;
+
+char *get_actual_layout()
+{
+	return actual_layout;
+}
+
+void	switch_layout()
+{
+	printk("Keyboard switched to");
+	if (actual_layout[16] == 'q')
+	{
+		actual_layout = keyboard_layout_AZERTY;
+		printk(" azerty\n");
+	}
+	else
+	{
+		actual_layout = keyboard_layout_QWERTY;
+		printk(" qwerty\n");
+	}
+}
+
 void	hardware_handler(int code) 
 {
 	launch_interrupt(code);
@@ -71,6 +127,6 @@ void	keyboard_handler()
 		uint8_t	scan_code = inb(K_DATA_PORT);
 		if (scan_code > 127)
 			return ;
-		last_char = keyboard_layout_QWERTY[scan_code];
+		last_char = get_actual_layout()[scan_code];
 	}
 }

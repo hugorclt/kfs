@@ -4,6 +4,7 @@
 #include "handler.h"
 #include "utils.h"
 #include "commands.h"
+#include "handler.h"
 #include "vga.h"
 
 static void	fill_user_input(char *input)
@@ -81,6 +82,8 @@ void	shell(void)
 			cmd_fat_malloc();
 		else if (check_user_input(input, "malloc"))
 			cmd_malloc();
+		else if (check_user_input(input, "switchkbr"))
+			switch_layout();
 		else
 			printk("Error: unknown cmd: %s\n", input);
 	}

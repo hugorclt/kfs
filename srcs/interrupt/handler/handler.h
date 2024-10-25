@@ -11,5 +11,6 @@ void	register_interrupt_handler(int index, t_interrupt_handler func);
 void	interrupt_handlers_init();
 void	keyboard_init();
 void	launch_interrupt(int index);
+void	switch_layout();
 
 char	get_last_char();

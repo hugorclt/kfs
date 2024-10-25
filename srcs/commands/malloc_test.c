@@ -25,7 +25,7 @@ void	cmd_fat_malloc()
 
 char	*alloc_and_set_str(char	*str)
 {
-	char *alloc = (char *) kmalloc(strlen(str) * sizeof(char));
+	char *alloc = (char *) kmalloc(strlen(str) * sizeof(char) + 1);
 	if (!alloc)
 	{
 		printk("malloc casse: test = \n", str);
@@ -43,12 +43,27 @@ void	cmd_malloc()
 {
 	printk("ptr: will malloc 10000 now\n");
 	void *ptr = kmalloc(10000);
+	if (!ptr)
+	{
+		printk("ptr: alloc casse\n");
+		return ;
+	}
 	printk("ptr: addr = %p, ptr: size = %u\n", ptr, ksize(ptr));
 	kfree(ptr);
 	printk("ptr: free\n");
 
 	char	*test1 = alloc_and_set_str("hello 1\n");
+	if (!test1)
+	{
+		printk("test1: alloc casse\n");
+		return ;
+	}
 	char	*test2 = alloc_and_set_str("hello 2\n");
+	if (!test2)
+	{
+		printk("test2: alloc casse\n");
+		return ;
+	}
 	printk("test1: value = %s", test1);
 	printk("test1: addr = %p, test1: size = %u\n", test1, ksize(test1));
 
@@ -61,6 +76,11 @@ void	cmd_malloc()
 	printk("test1: free\n");
 
 	char	*test3 = alloc_and_set_str("hello 3\n");
+	if (!test3)
+	{
+		printk("test3: alloc casse\n");
+		return ;
+	}
 	printk("test3: value = %s", test3);
 	printk("test3: addr = %p, test3: size = %u\n", test3, ksize(test3));
 
