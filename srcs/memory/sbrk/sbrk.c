@@ -6,7 +6,7 @@
 #include "printk.h"
 
 uintptr_t heap_start = 0xC0400000;
-size_t heap_end = 0xC0800000;
+size_t heap_end = 0xC07FFFFF;
 size_t heap_used = 0;
 
 

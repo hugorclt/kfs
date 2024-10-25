@@ -4,6 +4,7 @@
 #include "handler.h"
 #include "utils.h"
 #include "commands.h"
+#include "handler.h"
 #include "vga.h"
 
 static void	fill_user_input(char *input)
@@ -77,6 +78,8 @@ void	shell(void)
 			cmd_help();
 		else if (check_user_input(input, "halt"))
 			cmd_halt();
+		else if (check_user_input(input, "switchkbr"))
+			switch_layout();
 		else
 			printk("Error: unknown cmd: %s\n", input);
 	}

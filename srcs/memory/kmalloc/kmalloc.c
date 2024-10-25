@@ -116,7 +116,10 @@ void	*kmalloc(size_t size)
 		void *new_space = sbrk(real_size);
 		if (!new_space)
 			return (NULL);
-		t_list_allocator *new_node = create_node(new_space,  (real_size / PAGE_FRAME_SIZE + 1) * PAGE_FRAME_SIZE); 
+		int page_size = (real_size / PAGE_FRAME_SIZE + 1) * PAGE_FRAME_SIZE;
+		if (page_size > 0x400000)
+			return (NULL);
+		t_list_allocator *new_node = create_node(new_space,  page_size); 
 		free_block = lst_add_front(new_node);
 	}
 
