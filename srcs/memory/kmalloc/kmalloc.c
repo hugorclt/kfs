@@ -121,21 +121,3 @@ void	*kmalloc(size_t size)
 	alloc_space(real_size, free_block);
 	return ((void*)free_block + header_padding);
 }
-
-void kmalloc_test()
-{
-	void *str = kmalloc(2);
-	printk("ptr1: %p, size: %d\n", str, ksize(str));
-	void *str2 = kmalloc(3);
-	printk("ptr2: %p, size: %d\n", str2, ksize(str2));
-	printk("free ptr1\n");
-	kfree(str);
-	void *str3 = kmalloc(1);
-	printk("ptr3: %p, size: %d\n", str3, ksize(str3));
-	void *str4 = kmalloc(5);
-	printk("ptr4: %p, size: %d\n", str4, ksize(str4));
-	printk("free ptr2\n");
-	kfree(str2);
-	void *str5 = kmalloc(2);
-	printk("ptr5: %p, size: %d\n", str5, ksize(str5));
-}

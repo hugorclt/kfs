@@ -53,44 +53,8 @@ void* page_table_virtual_address(uint16_t page_table_number) {
   return (void*) virtual_address;
 }
 
-// oui ou
-// bool	vmm_map_page(uintptr_t physical_address, uintptr_t virtual_address)
-// {
-// 	int dir_index = PAGE_DIRECTORY_INDEX(virtual_address);
-// 	int table_index = PAGE_TABLE_INDEX(virtual_address);
-// 	// printk("dir_index: %d\n", dir_index);
-// 	// printk("table_index: %d\n", table_index);
-//
-// 	t_page_directory *dir = (t_page_directory *)PAGE_DIR_VIRTUAL;
-//
-// 	bool dir_entry_present = pde_look_attrib(&dir->entries[dir_index], PDE_PRESENT);
-// 	// printk("%d\n", dir_entry_present);
-// 	if (!dir_entry_present)
-// 	{
-// 		uint32_t page_table_physique = (uint32_t)pmm_allocate(); 
-//
-// 		if (!page_table_physique)
-// 			return (false);
-//
-// 		//directory entry
-// 		pde_add_attrib(&dir->entries[dir_index], PDE_PRESENT);
-// 		pde_add_attrib(&dir->entries[dir_index], PDE_READ_WRITE);
-// 		pde_add_phys_addr(&dir->entries[dir_index], page_table_physique);
-// 		
-// 	}
-// 	t_page_table* page_table_virtual = (t_page_table*)(PAGE_TABLE_VIRTUAL + dir_index * PAGE_FRAME_SIZE);
-//
-// 	pte_add_attrib(&page_table_virtual->entries[table_index], I86_PTE_PRESENT);
-// 	pte_add_attrib(&page_table_virtual->entries[table_index], I86_PTE_WRITABLE);
-// 	pte_add_phys_addr(&page_table_virtual->entries[table_index], physical_address);
-// 	return (true);
-// }
-
-
-//fonctionne
 bool	vmm_map_page(unsigned long physical_address, unsigned long virtual_address)
 {
-	printk("In map page\n");
 	int dir_index = PAGE_DIRECTORY_INDEX(virtual_address);
 	int table_index = PAGE_TABLE_INDEX(virtual_address);
 
@@ -195,11 +159,6 @@ void	vmm_init()
 	pde_add_attrib(pde_kernel, PDE_PRESENT);
 	pde_add_attrib(pde_kernel, PDE_READ_WRITE);
 	pde_add_phys_addr(pde_kernel, (uint32_t)kernel_page);
-
-	// uint32_t *pde_recursive = &dir->entries[PAGE_DIRECTORY_INDEX(0xFFC00000)];
-	// pde_add_attrib(pde_recursive, PDE_PRESENT);
-	// pde_add_attrib(pde_recursive, PDE_READ_WRITE);
-	// pde_add_phys_addr(pde_recursive, (uint32_t)dir);
 	
 	uint32_t *pde_heap = &dir->entries[PAGE_DIRECTORY_INDEX(0xc0400000)];
 	pde_add_attrib(pde_heap, PDE_PRESENT);
