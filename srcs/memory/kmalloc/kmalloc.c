@@ -81,6 +81,7 @@ void	*alloc_space(size_t size, t_list_allocator *free_block)
 		t_list_allocator *new_block = create_node((void*)((uintptr_t)free_block + size), free_block->size - size);
 		lst_add_front(new_block);
 	}
+	free_block->size = size;
 	remove_node(free_block);
 
 	return (free_block);
