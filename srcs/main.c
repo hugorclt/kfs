@@ -12,6 +12,44 @@
 #include "utils.h"
 #include "kmalloc.h"
 
+char	*alloc_and_set_str(char	*str)
+{
+	char *alloc = (char *) kmalloc(strlen(str) * sizeof(char));
+	if (!alloc)
+	{
+		printk("malloc casse: test = \n", str);
+		return NULL;
+	}
+	for (size_t i = 0; i < strlen(str); i++)
+	{
+		alloc[i] = str[i];
+	}
+	alloc[strlen(str)] = '\0';
+	return (alloc);
+}
+void	malloc_test()
+{
+	printk("will malloc 10000 now\n");
+	void *ptr = kmalloc(10000);
+	printk("ptr addr = %p\n", ptr);
+	kfree(ptr);
+	char	*test1 = alloc_and_set_str("hello 1\n");
+	char	*test2 = alloc_and_set_str("hello 2\n");
+	printk("test1 value: %s", test1);
+	printk("test1 addr = %p\n", test1);
+
+	printk("test2 value: %s", test2);
+	printk("test2 addr = %p\n", test2);
+
+	kfree(test1);
+	char	*test3 = alloc_and_set_str("hello 3\n");
+	printk("test3 value: %s", test3);
+	printk("test3 addr = %p\n", test3);
+	kfree(test2);
+	kfree(test3);
+
+}
+
 void	kernel_main(uint32_t magic, multiboot_info_t *bootInfo) 
 {
 	(void) magic;
@@ -19,23 +57,12 @@ void	kernel_main(uint32_t magic, multiboot_info_t *bootInfo)
 	pmm_init(bootInfo);
 	vmm_init();
 	idt_init();
+	printk("");
+
 	// print_memory_map(bootInfo);
+	malloc_test();
 
-
-	// shell();
-	char *str = (char *) kmalloc(10 * sizeof(char));
-	if (!str)
-		printk("malloc casse\n");
-	// printk("str addrr = %p\n", str);
-	for (size_t i = 0; i < 9; i++)
-	{
-		str[i] = 'A';
-	}
-	str[9] = '\0';
-	// printk("%s\n", str);
-
-	// kfree(str);
-
+	shell();
 
 	printk("infinite loop \n");
 	while(1);

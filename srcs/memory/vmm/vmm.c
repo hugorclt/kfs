@@ -56,6 +56,7 @@ void* page_table_virtual_address(uint16_t page_table_number) {
 // oui oui
 bool	vmm_map_page(uintptr_t physical_address, uintptr_t virtual_address)
 {
+	printk("In map page\n");
 	int dir_index = PAGE_DIRECTORY_INDEX(virtual_address);
 	int table_index = PAGE_TABLE_INDEX(virtual_address);
 
@@ -189,9 +190,7 @@ bool	vmm_alloc_page(uintptr_t virtual_address)
 
 	if (!vmm_map_page((uintptr_t)p, virtual_address))
 	{
-		return (false);
-		
-	}
-	
+		return (false);		
+	}	
 	return (true);
 }

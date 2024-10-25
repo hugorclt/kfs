@@ -96,13 +96,17 @@ void	*alloc_space(size_t size, t_list_allocator *free_block)
 
 void	*kmalloc(size_t size)
 {
-	size_t				real_size = size + header_padding;
-	printk("kmalloc: size: %d\n", size);
-	printk("kmalloc: header_padding size: %d\n", header_padding);
-	printk("kmalloc: real_size: %d\n", real_size);
+	// printk("In kmalloc\n");
 
-	printk("In ka")
+	size_t				real_size = size + header_padding;
+	// printk("kmalloc: size: %d\n", size);
+	// printk("kmalloc: header_padding size: %d\n", header_padding);
+	// printk("kmalloc: real_size: %d\n", real_size);
+
+	// printk("In free block\n");
 	t_list_allocator	*free_block = find_free_block(real_size);
+	// printk("out free block\n");
+
 
 	if (!free_block)
 	{
@@ -114,6 +118,8 @@ void	*kmalloc(size_t size)
 	}
 
 	alloc_space(real_size, free_block);
+
+	// printk("out of kmalloc\n");
 
 	return (free_block + header_padding);
 }
