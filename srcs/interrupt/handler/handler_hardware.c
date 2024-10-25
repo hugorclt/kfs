@@ -3,6 +3,7 @@
 #include "handler.h"
 #include "io_port.h"
 #include "pic.h"
+#include "vga.h"
 
 #define K_DATA_PORT		0x60
 #define K_STATUS_PORT	0x64
@@ -86,16 +87,20 @@ char *get_actual_layout()
 void	switch_layout()
 {
 	printk("Keyboard switched to");
+	vga_set_fg_color(VGA_COLOR_LIGHT_GREEN);
 	if (actual_layout[16] == 'q')
 	{
 		actual_layout = keyboard_layout_AZERTY;
-		printk(" azerty\n");
+		printk(" azerty");
 	}
 	else
 	{
 		actual_layout = keyboard_layout_QWERTY;
-		printk(" qwerty\n");
+		printk(" qwerty");
 	}
+	vga_set_fg_color(VGA_COLOR_WHITE);
+	printk("\n");
+
 }
 
 void	hardware_handler(int code) 

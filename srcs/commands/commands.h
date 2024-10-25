@@ -12,7 +12,6 @@ void		cmd_reboot(void);
 void		cmd_hello(void);
 void		cmd_help(void);
 void		cmd_halt(void);
-void		cmd_fat_malloc();
 void		cmd_malloc();
 
 extern void	panic();

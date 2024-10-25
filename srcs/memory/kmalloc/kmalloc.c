@@ -92,7 +92,6 @@ void	kfree(void *addr)
 		return ;
 	t_list_allocator *new_node = (t_list_allocator *)(addr - header_padding);
 	lst_add_front(new_node);
-	printk("kfree: new_node size = %u\n", new_node->size);
 }
 
 size_t	ksize(void *addr)
@@ -109,7 +108,6 @@ void	*kmalloc(size_t size)
 {
 	size_t				real_size = size + header_padding;
 	t_list_allocator	*free_block = find_free_block(real_size);
-	printk("kmalloc: free_bloc found: %p\n", free_block);
 
 	if (!free_block)
 	{

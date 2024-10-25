@@ -78,8 +78,6 @@ void	shell(void)
 			cmd_help();
 		else if (check_user_input(input, "halt"))
 			cmd_halt();
-		else if (check_user_input(input, "fatmalloc"))
-			cmd_fat_malloc();
 		else if (check_user_input(input, "malloc"))
 			cmd_malloc();
 		else if (check_user_input(input, "switchkbr"))

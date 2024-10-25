@@ -12,14 +12,12 @@ static size_t	tab_size(char	*tab[])
 void	cmd_help()
 {
 	char	*cmds[] = {"stack", "ping", "hello", "shutdown", "reboot", "clear", "halt", "help",
-		"switchkbr", "malloc", "fatmalloc", NULL};
+		"switchkbr", "malloc", NULL};
 
 	printk("Usage:  ");
 	vga_set_fg_color(VGA_COLOR_LIGHT_BROWN);
 	for(size_t i = 0; i < tab_size(cmds); i++)
-	{
 		printk("%s  ", cmds[i]);
-	}
 	vga_set_fg_color(VGA_COLOR_WHITE);
 	printk("\n");
 }
