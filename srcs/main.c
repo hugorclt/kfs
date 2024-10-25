@@ -54,16 +54,20 @@ void	kernel_main(uint32_t magic, multiboot_info_t *bootInfo)
 {
 	(void) magic;
 	gdt_init();
+	idt_init();
 	pmm_init(bootInfo);
 	vmm_init();
-	idt_init();
-	printk("");
 
 	// print_memory_map(bootInfo);
-	malloc_test();
+	// malloc_test();
 
-	shell();
+	// shell();
+
+	kmalloc_test();
+
+	// shell();
 
 	printk("infinite loop \n");
+
 	while(1);
 }
