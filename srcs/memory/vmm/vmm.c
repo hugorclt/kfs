@@ -163,10 +163,11 @@ void	vmm_init()
 		kernel_page->entries[PAGE_TABLE_INDEX(virt)] = page;
 	}
 	
+	//heap map
 	for (size_t j = 0; j < 1024; j++)
 	{
 		uint32_t page = 0;
-		for (size_t i = 0, frame=0x500000 + (j * 4096), virt=0xC0400000 + (j * 4096); i < 1024; i++, frame += 4096, virt += 4096)
+		for (size_t i = 0, frame=0x1200000 + (j * 4096), virt=0xC0400000 + (j * 4096); i < 1024; i++, frame += 4096, virt += 4096)
 		{
 			pte_add_attrib(&page, I86_PTE_PRESENT);
 			pte_add_phys_addr(&page, frame);
