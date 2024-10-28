@@ -88,6 +88,8 @@ void	shell(void)
 			test_queue_signal();
 		else if (check_user_input(input, "echo"))
 			cmd_echo();
+		else if (check_user_input(input, "syscall"))
+			test_syscall_read(10, NULL, 100);
 		else
 			printk("Error: unknown cmd: %s\n", input);
 	}

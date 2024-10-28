@@ -18,15 +18,6 @@ typedef struct __attribute__((packed)) s_idt_descriptor {
 	uint16_t	i_handler_high;
 }	t_idt_descriptor;
 
-typedef struct __attribute__((packed)) s_register {
-	uint32_t eax;
-	uint32_t ebx;
-	uint32_t ecx;
-	uint32_t edx;
-	uint32_t esi;
-	uint32_t edi;
-} t_register;
-
 extern void*	system_isr_stub_table[];	//system interrupt
 extern void*	hardware_isr_stub_table[];	//hardware interrupt
 extern void*	syscall_handler_wrapper;

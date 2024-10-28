@@ -10,10 +10,7 @@ __attribute__((aligned(0x10))) // aligned for performance
 	static t_idt_descriptor	idt[MAX_IDT_ENTRIES];
 	t_idtr					idtr;
 
-void syscall_handler(t_register register_state)
-{
 
-}
 
 static void	idt_init_descriptor(uint8_t i, uint32_t handler, uint8_t flags)
 {

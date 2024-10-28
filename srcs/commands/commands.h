@@ -19,3 +19,5 @@ void		cmd_echo(void);
 
 extern void	panic();
 extern void	fatal();
+extern int	test_syscall_read_asm(int fd, void * buffer, size_t count);
+void	test_syscall_read(int fd, void * buffer, size_t count);
