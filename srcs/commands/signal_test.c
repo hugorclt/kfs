@@ -29,4 +29,6 @@ void	test_queue_signal()
 	register_signal(SIGUSR1);
 	raise_queue();
 
+	raise_queue();
+
 }

@@ -2,7 +2,7 @@
 
 #define SIGNAL_MAX 34
 
-#define MAX_QUEUE_ELEM 100
+#define MAX_QUEUE_ELEM 1000
 
 typedef struct s_sig_queue {
 	int data[MAX_QUEUE_ELEM];
