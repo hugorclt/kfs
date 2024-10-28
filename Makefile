@@ -17,9 +17,9 @@ INCL        = $(addprefix -I, $(shell find $(SRC_DIR) -type d))
 CC          = gcc
 AS          = nasm
 LD          = ld
-CFLAGS      = -m32 -std=gnu99 -ffreestanding -Wall -Wextra
+CFLAGS      = -m32 -std=gnu99 -ffreestanding -Wall -Wextra -fno-builtin -fno-stack-protector -nodefaultlibs
 ASFLAGS     = -felf32
-LDFLAGS     = -m elf_i386 -nostdlib
+LDFLAGS     = -m elf_i386 -nostdlib 
 
 # Linker script
 LINKER_FILE = ./linker.ld
