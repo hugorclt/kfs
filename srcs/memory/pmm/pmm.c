@@ -142,3 +142,9 @@ void	pmm_init(multiboot_info_t *bootInfo)
 	init_memory_var(bootInfo);
 	init_bitmap();
 }
+
+size_t pmm_size(uintptr_t addr)
+{
+	(void)addr;
+	return (4096);
+}

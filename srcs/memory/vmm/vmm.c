@@ -44,15 +44,6 @@ uint32_t *vmm_directory_lookup(t_page_directory *page_directory, uintptr_t virtu
 	return (NULL);
 }
 
-void* page_table_virtual_address(uint16_t page_table_number) {
-  // First 10 bits are set to 1
-  uint32_t virtual_address = 0xFFC00000;
-
-  virtual_address |= (page_table_number << 12);
-
-  return (void*) virtual_address;
-}
-
 bool	vmm_map_page(unsigned long physical_address, unsigned long virtual_address)
 {
 	int dir_index = PAGE_DIRECTORY_INDEX(virtual_address);

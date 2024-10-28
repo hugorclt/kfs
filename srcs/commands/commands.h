@@ -13,6 +13,8 @@ void		cmd_hello(void);
 void		cmd_help(void);
 void		cmd_halt(void);
 void		cmd_malloc();
+void	test_default_signal();
+void	test_queue_signal();
 
 extern void	panic();
 extern void	fatal();

@@ -18,3 +18,5 @@ void launch_interrupt(int index)
 	if (interrupt_handlers[index] != 0)
 		interrupt_handlers[index]();
 }
+
+

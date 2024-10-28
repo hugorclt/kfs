@@ -3,6 +3,7 @@
 #include "printk.h"
 #include "gdt.h"
 #include "idt.h"
+#include "signal/signal.h"
 #include "vga.h"
 #include "shell.h"
 #include "pmm.h"
@@ -12,6 +13,7 @@
 #include "utils.h"
 #include "kmalloc.h"
 #include "sbrk.h"
+#include "signal.h"
 
 
 
@@ -22,6 +24,7 @@ void	kernel_main(uint32_t magic, multiboot_info_t *bootInfo)
 	idt_init();
 	pmm_init(bootInfo);
 	vmm_init();
+	init_signal();
 
 	shell();
 	while(1);

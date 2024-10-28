@@ -82,6 +82,10 @@ void	shell(void)
 			cmd_malloc();
 		else if (check_user_input(input, "switchkbr"))
 			switch_layout();
+		else if (check_user_input(input, "signal"))
+			test_default_signal();
+		else if (check_user_input(input, "signalqueue"))
+			test_queue_signal();
 		else
 			printk("Error: unknown cmd: %s\n", input);
 	}
