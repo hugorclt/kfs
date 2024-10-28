@@ -11,3 +11,5 @@ isodir
 .objs
 
 bx_enh_dbg.ini
+compile_commands.json
+.clang-format
