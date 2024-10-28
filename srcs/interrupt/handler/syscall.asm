@@ -1,35 +1,6 @@
 global	syscall_handler_wrapper
 extern	syscall_handler
 
-; syscall_handler_wrapper:
-; 	pushad
-; 	push ds
-; 	push fs
-; 	push gs
-; 	push es
-
-; 	mov ax, 0x10 ; kernel data seg
-; 	mov ds, ax
-; 	mov es, ax
-; 	mov fs, ax
-; 	mov gs, ax
-
-; 	push edi
-; 	push esi
-; 	push edx
-; 	push ecx
-; 	push ebx
-; 	push eax
-; 	call syscall_handler
-
-; 	pop es
-; 	pop gs
-; 	pop fs
-; 	pop ds
-
-; 	popad
-; 	iretd
-
 syscall_handler_wrapper:
 	dd syscall_handler_test
 
@@ -63,8 +34,6 @@ syscall_handler_test:
     pop esi             ; Restore esi
     pop edi             ; Restore edi
     pop ebp             ; Restore ebp
-
-
 
     ; Restore segment registers
     pop ds              ; Restore ds
