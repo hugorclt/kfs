@@ -31,6 +31,9 @@ extern	syscall_handler
 ; 	iretd
 
 syscall_handler_wrapper:
+	dd syscall_handler_test
+
+syscall_handler_test:
     ; Save registers and segment registers
     push eax      ; Save eax (will hold the syscall number)
     push gs       ; Save gs segment register
