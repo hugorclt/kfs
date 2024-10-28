@@ -118,6 +118,15 @@ void					vga_erase_last_char()
 	vga_update_cursor(vga_x, vga_y);
 }
 
+void					vga_erase_last_char_unprotected()
+{
+	if (vga_x > 0)
+		vga_x -= 1;
+	size_t index = vga_index(vga_x, vga_y);
+	vga_buffer[index] = vga_entry(' ', fg_color, bg_color);
+	vga_update_cursor(vga_x, vga_y);
+}
+
 void					vga_write_buffer(unsigned char uc)
 {
 	if (!vga_write_special_char(uc))

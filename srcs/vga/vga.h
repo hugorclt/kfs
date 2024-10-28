@@ -34,4 +34,4 @@ void	vga_clear_buffer();
 void	vga_write_buffer(unsigned char uc);
 void	vga_write_buffer_str(const char *str);
 void	vga_erase_last_char();
-
+void	vga_erase_last_char_unprotected();

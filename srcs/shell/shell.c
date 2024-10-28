@@ -7,7 +7,7 @@
 #include "handler.h"
 #include "vga.h"
 
-static void	fill_user_input(char *input)
+void	fill_user_input(char *input)
 {
 	char	c = '\0';
 	do
@@ -28,7 +28,7 @@ static void	fill_user_input(char *input)
 		}
 	}
 	while(c != '\n' && strlen(input) < (80 - strlen("KFS>")));
-	if (c == '\n')
+	if (c == '\n' || strlen(input) >= (80 - strlen("KFS>")))
 		printk("\n");
 }
 
@@ -56,7 +56,7 @@ void	shell(void)
 
 	while (1)
 	{
-		char	input[128] = {0}; 
+		char	input[128] = {0};
 		print_prompt();
 		fill_user_input(input);
 
@@ -82,10 +82,15 @@ void	shell(void)
 			cmd_malloc();
 		else if (check_user_input(input, "switchkbr"))
 			switch_layout();
+<<<<<<< HEAD
 		else if (check_user_input(input, "signal"))
 			test_default_signal();
 		else if (check_user_input(input, "signalqueue"))
 			test_queue_signal();
+=======
+		else if (check_user_input(input, "echo"))
+			cmd_echo();
+>>>>>>> adrian
 		else
 			printk("Error: unknown cmd: %s\n", input);
 	}
