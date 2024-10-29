@@ -36,7 +36,6 @@ void	init_memory_var(multiboot_info_t *bootInfo)
 			return ;
 		}		
 	}
-	// TO DO : ADD PANIC HANDLER IN CASE OF GRUB ERROR
 }
 
 size_t	get_page_frame_index(uintptr_t addr)
