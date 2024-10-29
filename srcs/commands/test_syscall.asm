@@ -10,7 +10,7 @@ test_syscall_read_asm:
 	mov ecx, [esp + 8 + 12]
 	mov edx, [esp + 12 + 12]
 
-	;mov eax, 0 ; syscall mumber READ
+	mov eax, 0 ; syscall number READ
 	int 0x80	;syscall
 	pop edx
 	pop ecx

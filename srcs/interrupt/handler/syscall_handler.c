@@ -7,33 +7,34 @@ int syscall_read(int fd, const void* buffer, size_t count)
 {
 	(void) buffer;
 
-	printk("In syscall_read");
+	printk("----In syscall_read----\n");
 	printk("fd: %d\n", fd);
+	printk("buffer: %p\n", buffer);
 	printk("count: %u\n", count);
+	
+	printk("returning: %d\n", fd);
+	printk("----Out syscall_read---\n");
 
 	return (fd);
 }
 
 int syscall_handler(t_pt_regs *regs)
 {
-	printk("in syscall handler\n");
 	int syscall_number = regs->eax;
-    int result = -ENOSYS; // Default to -ENOSYS if syscall is unimplemented
-			  printk("syscall_number: %d, %d, %d, %d\n", syscall_number, regs->ebx, regs->ecx, regs->edx);
+	int result = -ENOSYS; // Default to -ENOSYS if syscall is unimplemented
 
 	switch(syscall_number)
 	{
 		case SYSCALL_READ:
 			result = syscall_read(
-				(int)regs->ebx,          // fd
-        	    (void *)regs->ecx,       // buffer
-        	    (size_t)regs->edx        // count
-        	    );
+					(int)regs->ebx,          // fd
+					(void *)regs->ecx,       // buffer
+					(size_t)regs->edx        // count
+					);
 			break;
-		
+
 		default:
 			break;
 	}
 	return (result);
-	printk("Syscall return\n");
 }
