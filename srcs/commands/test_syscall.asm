@@ -6,6 +6,7 @@ test_syscall_read_asm:
 	push ebx
 	push ecx
 	push edx
+	mov eax, 0
 	mov ebx, [esp + 4 + 12]
 	mov ecx, [esp + 8 + 12]
 	mov edx, [esp + 12 + 12]

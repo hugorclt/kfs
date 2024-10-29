@@ -27,8 +27,6 @@ void	kernel_main(uint32_t magic, multiboot_info_t *bootInfo)
 	vmm_init();
 	init_signal();
 
-	test_syscall_read(1, NULL, 1090);
-	// printk("%p\n", test_syscall_read);
-	// shell();
+	shell();
 	while(1);
 }
