@@ -51,7 +51,8 @@ syscall_handler_test:
     push esp            ; Push pointer to pt_regs structure
 
     ; Call the C function to handle the syscall
-    call syscall_handler
+        ;cld
+        call syscall_handler
 
     ; Clean up the stack (remove the pointer we pushed)
     add esp, 4
@@ -74,4 +75,4 @@ syscall_handler_test:
 
     ; Final cleanup and return from interrupt
     add esp, 4          ; Remove extra stack space for old eax
-    iretd               ; Return to user space
+   iretd 		; Return to user space
