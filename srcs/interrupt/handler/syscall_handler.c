@@ -19,6 +19,7 @@ int syscall_handler(t_pt_regs *regs)
 	printk("in syscall handler\n");
 	int syscall_number = regs->eax;
     int result = -ENOSYS; // Default to -ENOSYS if syscall is unimplemented
+			  printk("syscall_number: %d, %d, %d, %d\n", syscall_number, regs->ebx, regs->ecx, regs->edx);
 
 	switch(syscall_number)
 	{
@@ -34,4 +35,5 @@ int syscall_handler(t_pt_regs *regs)
 			break;
 	}
 	return (result);
+	printk("Syscall return\n");
 }

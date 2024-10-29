@@ -2,7 +2,7 @@ romimage: file=/usr/share/bochs/BIOS-bochs-legacy
 vgaromimage: file=/usr/share/bochs/VGABIOS-lgpl-latest
 ata0-slave: type=cdrom, path=kfs.bin.iso, status=inserted
 boot:cdrom
-display_library: x, options="gui_debug"
+gdbstub: enabled=1, port=1234, text_base=0, data_base=0, bss_base=0.
 
 
 magic_break: enabled=1
