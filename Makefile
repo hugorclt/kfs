@@ -81,7 +81,8 @@ build_iso:
 # Run the program in QEMU
 run:
 	@echo "\033[1;32mKfs: Running kfs...\033[0m"
-	@qemu-system-x86_64 -cdrom $(NAME).iso -display sdl
+	qemu-system-i386 -cdrom $(NAME).iso -display cocoa
+	#@qemu-system-x86_64 -cdrom $(NAME).iso -display sdl
 	@echo "\033[1;32mKfs: Goodbye! :)) \033[0m"
 
 # Run the program in QEMU
