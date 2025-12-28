@@ -30,3 +30,4 @@ void	kernel_main(uint32_t magic, multiboot_info_t *bootInfo)
 	shell();
 	while(1);
 }
+

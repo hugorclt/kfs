@@ -9,9 +9,9 @@
 #define PAGE_GET_PHYSICAL_ADDRESS(x) (*x & ~0xfff)
 
 extern void flush_tlb_entry(uint32_t entry);
-// extern void enable_paging(bool enable, uint32_t dir);
 extern void enable_paging(uint32_t dir);
 bool	vmm_alloc_page(uintptr_t virtual_address);
+bool vmm_is_mapped(uintptr_t virtual_address);
 
 #define PAGE_TABLE_VIRTUAL 0xFFC00000
 #define PAGE_DIR_VIRTUAL 0xFFFFF000

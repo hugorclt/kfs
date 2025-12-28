@@ -14,3 +14,10 @@ load_gdt:
    ret     ; 0x08 is the offset to our code segment: far jump on it
 .flush:
    ret
+
+global load_tss
+load_tss:
+  mov ax, 0x3B
+  LTR ax
+  ret
+  

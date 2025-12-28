@@ -97,7 +97,7 @@ void	*pmm_allocate_blocks(size_t	n)
 			}
 			if (array_found == true)
 			{
-				for (size_t k = start_of_free_blocks; k < n; k++)
+				for (size_t k = start_of_free_blocks; k < start_of_free_blocks + n; k++)
 				{
 					bitmap[k] = ALLOCATED;
 				}
