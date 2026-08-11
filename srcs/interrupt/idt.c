@@ -41,5 +41,6 @@ void	idt_init(void)
 
 	interrupt_handlers_init();
 	keyboard_init();
+	timer_init(100);   
 	load_idt(&idtr);
 }

@@ -147,7 +147,7 @@ void	vmm_init()
 	}
 	
 	uint32_t dir_phys = (uint32_t)pmm_allocate();
-  t_page_directory *dir = (t_page_directory *)dir_phys;
+    t_page_directory *dir = (t_page_directory *)dir_phys;
 
 	memset(dir, 0, sizeof(t_page_directory));
 

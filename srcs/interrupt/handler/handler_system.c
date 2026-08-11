@@ -1,6 +1,20 @@
 #include "handler.h"
 #include "printk.h"
 
+static int is_fatal(int vector)
+{
+    switch (vector) {
+        // Non-fatales : on veut reprendre normalement
+        case 1:   // Debug
+        case 3:   // Breakpoint
+        case 4:   // Overflow (déclenché par INTO, récupérable)
+            return 0;
+        // Tout le reste : on considère fatal pour l'instant
+        default:
+            return 1;
+    }
+}
+
 void system_handler(int err_code)
 {
 	switch(err_code) {
@@ -74,4 +88,8 @@ void system_handler(int err_code)
 			printk("ISR code = RESERVED\n");
 			break;
 	}
+
+	if (is_fatal(err_code)) {
+        panic();   // il faudra l'exposer, voir plus bas
+    }
 }

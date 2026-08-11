@@ -15,6 +15,9 @@ void	interrupt_handlers_init();
 void	keyboard_init();
 void	launch_interrupt(int index);
 void	switch_layout();
+void    timer_handler();
+void    timer_init(uint32_t frequency);
+extern void panic(void);
 
 char	get_last_char();
 

@@ -11,6 +11,6 @@ typedef struct thread_control_block {
       uint8_t state;
 } thread_control_block_t;
 
-thread_control_block_t *process_list_head;
+extern thread_control_block_t *process_list_head;
 
 void initialize_multitasking();
